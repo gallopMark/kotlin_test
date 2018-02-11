@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_learn"
+            android:icon="@drawable/menu_learn"
+            android:title="@string/learn" />
+        <item
+            android:id="@+id/nav_teaching"
+            android:icon="@drawable/menu_tr"
+            android:title="@string/teachingResearch" />
+        <item
+            android:id="@+id/nav_peer"
+            android:icon="@drawable/menu_peer"
+            android:title="@string/peer" />
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/menu_message"
+            android:title="@string/message" />
+        <item
+            android:id="@+id/nav_workshop"
+            android:icon="@drawable/menu_ws"
+            android:title="@string/workshopGroup" />
+        <item
+            android:id="@+id/nav_consulting"
+            android:icon="@drawable/menu_ec"
+            android:title="@string/consulting" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/menu_settings"
+            android:title="@string/settings" />
+    </group>
+</menu>

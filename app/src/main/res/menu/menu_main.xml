@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--扫一扫菜单-->
+    <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/ic_scan"
+        android:orderInCategory="80"
+        android:title="@string/scan"
+        app:showAsAction="ifRoom" />
+    <!--通知菜单-->
+    <item
+        android:id="@+id/action_msg"
+        android:icon="@drawable/ic_announcement"
+        android:orderInCategory="90"
+        android:title="@string/announcement"
+        app:showAsAction="always" />
+</menu>

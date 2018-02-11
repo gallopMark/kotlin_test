@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">乐高研修社区</string>
+    <string name="search">搜索</string>
+    <string name="scan">扫一扫</string>
+    <string name="announcement">通知</string>
+    <string name="send">发送</string>
+
+    <string name="learn">学习</string>
+    <string name="teachingResearch">教研</string>
+    <string name="peer">同行</string>
+    <string name="message">消息</string>
+    <string name="courseCenter">选课中心</string>
+    <string name="workshopGroup">工作坊群</string>
+    <string name="consulting">教务咨询</string>
+    <string name="settings">设置</string>
+</resources>
