@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Handler
 import android.view.KeyEvent
 import com.haoyuinfo.app.R
-import com.haoyuinfo.app.base.BaseActivity
+import com.haoyuinfo.library.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
     override fun setLayoutResID(): Int {

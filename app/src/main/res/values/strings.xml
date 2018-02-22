@@ -13,4 +13,10 @@
     <string name="workshopGroup">工作坊群</string>
     <string name="consulting">教务咨询</string>
     <string name="settings">设置</string>
+
+    <string name="course_learn">课程学习</string>
+    <string name="workshop_training">工作坊研修</string>
+    <string name="cmts_development">研修社区</string>
+    <string name="empty_course">暂时没有选课</string>
+    <string name="empty_workshop">暂时没有参与工作坊</string>
 </resources>

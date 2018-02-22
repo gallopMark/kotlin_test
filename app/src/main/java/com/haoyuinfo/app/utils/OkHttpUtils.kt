@@ -46,6 +46,19 @@ class OkHttpUtils private constructor() {
         return json
     }
 
+    @Throws(Exception::class)
+    fun <T> getAsClass(context: Context, url: String): T {
+        var response = getResponse(context, url)
+        var json = response.body()?.string()
+        if (json != null && json.contains(Constants.NOSESSION)) {
+            login(context)
+            response.close()
+            response = getResponse(context, url)
+            json = response.body()?.string()
+        }
+        return mGson.fromJson(json, getRawType())
+    }
+
     /*异步get请求，返回Disposable*/
     fun <T> getAsync(context: Context, url: String, callback: ResultCallback<T>?): Disposable {
         val request = Request.Builder().url(url).tag(context).addHeader("Accept-Encoding", "gzip").build()
@@ -64,6 +77,18 @@ class OkHttpUtils private constructor() {
             return response.body()?.string()
         }
         return json
+    }
+
+    fun <T> postAsClass(context: Context, url: String, params: Map<String, String>): T {
+        var response = postResonse(context, url, params)
+        var json = response.body()?.string()
+        if (json != null && json.contains(Constants.NOSESSION)) {
+            login(context)
+            response.close()
+            response = postResonse(context, url, params)
+            json = response.body()?.string()
+        }
+        return mGson.fromJson(json, getRawType())
     }
 
     /*异步post请求*/
@@ -307,5 +332,15 @@ class OkHttpUtils private constructor() {
         fun <T> postAsync(context: Context, url: String, file: File, params: Map<String, String>, listener: ProgressListener, callback: ResultCallback<T>): Disposable? = mInstance?.postAsync(context, url, file, params, listener, callback)
 
         fun <T> postAsync(context: Context, url: String, files: Array<File>, params: Map<String, String>, listener: ProgressListener, callback: ResultCallback<T>): Disposable? = mInstance?.postAsync(context, url, files, params, listener, callback)
+    }
+
+    private fun getRawType(): Type? {
+        try {
+            val superclass = javaClass.genericSuperclass
+            val parameterized = superclass as ParameterizedType
+            return `$Gson$Types`.canonicalize(parameterized.actualTypeArguments[0])
+        } catch (e: Exception) {
+            return null
+        }
     }
 }

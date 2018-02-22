@@ -1,0 +1,4 @@
+<resources>
+    <string name="empty_files">没有可选择文件~</string>
+    <string name="selected">选中</string>
+</resources>

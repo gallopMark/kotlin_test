@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitesmoke"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llTrain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvTrain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_size_12"
+                android:textSize="@dimen/font_size_16" />
+
+            <ImageView
+                android:id="@+id/ivExpand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_expand_more_black_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_size_10"
+            android:paddingTop="@dimen/margin_size_10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:drawableTop="@drawable/course_learn"
+                    android:gravity="center"
+                    android:text="@string/course_learn"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_courseResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_workshop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:drawableTop="@drawable/ws_training"
+                    android:gravity="center"
+                    android:text="@string/workshop_training"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_wsResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_community"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:drawableTop="@drawable/cmts_development"
+                    android:text="@string/cmts_development"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_cmtsResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:textSize="@dimen/font_size_12" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_size_1"
+            android:layout_marginTop="@dimen/margin_size_8"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/hollowcircle"
+            android:drawablePadding="@dimen/margin_size_8"
+            android:padding="@dimen/margin_size_12"
+            android:text="@string/course_learn"
+            android:textSize="@dimen/font_size_16" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:descendantFocusability="blocksDescendants">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCourse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/tvEmptyCourse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_size_30"
+                android:drawableLeft="@drawable/empty_course"
+                android:drawablePadding="@dimen/margin_size_16"
+                android:gravity="center"
+                android:text="@string/empty_course"
+                android:textSize="@dimen/font_size_18" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_workshop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_size_1"
+            android:layout_marginTop="@dimen/margin_size_8"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/hollowcircle"
+            android:drawablePadding="@dimen/margin_size_6"
+            android:padding="@dimen/margin_size_12"
+            android:text="@string/workshop_training"
+            android:textSize="@dimen/font_size_16" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:descendantFocusability="blocksDescendants">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvWs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/tvEmptyWS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_size_30"
+                android:drawableLeft="@drawable/empty_workshop"
+                android:drawablePadding="@dimen/margin_size_16"
+                android:gravity="center"
+                android:text="@string/empty_workshop"
+                android:textSize="@dimen/font_size_18" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_cmts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_size_1"
+            android:layout_marginTop="@dimen/margin_size_8"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/hollowcircle"
+            android:drawablePadding="@dimen/margin_size_6"
+            android:padding="@dimen/margin_size_12"
+            android:text="研修社区"
+            android:textSize="@dimen/font_size_16" />
+
+        <LinearLayout
+            android:id="@+id/ll_cmts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingLeft="@dimen/margin_size_12"
+            android:paddingRight="@dimen/margin_size_12"
+            android:paddingTop="@dimen/margin_size_14">
+
+            <ImageView
+                android:id="@+id/iv_cmts"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_size_12"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_cmtsPeriod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_date"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_cmtsStudyHour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_studyhour"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:gravity="left"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/tv_cmtsScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_size_6"
+                    android:drawableLeft="@drawable/ic_score"
+                    android:drawablePadding="@dimen/margin_size_6"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_16" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

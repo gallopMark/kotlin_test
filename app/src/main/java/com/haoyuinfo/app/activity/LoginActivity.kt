@@ -4,17 +4,18 @@ import android.content.Intent
 import android.text.TextUtils
 import android.widget.Toast
 import com.haoyuinfo.app.R
-import com.haoyuinfo.app.base.BaseActivity
 import com.haoyuinfo.app.base.BaseResult
-import com.haoyuinfo.app.module.MobileUser
+import com.haoyuinfo.app.entity.MobileUser
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.app.utils.PreferenceUtils
+import com.haoyuinfo.library.base.BaseActivity
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.Request
+import java.util.*
 
 class LoginActivity : BaseActivity() {
 

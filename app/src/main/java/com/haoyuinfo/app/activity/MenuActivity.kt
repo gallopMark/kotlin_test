@@ -1,7 +1,7 @@
 package com.haoyuinfo.app.activity
 
 import com.haoyuinfo.app.R
-import com.haoyuinfo.app.base.BaseActivity
+import com.haoyuinfo.library.base.BaseActivity
 
 class MenuActivity : BaseActivity() {
     override fun setLayoutResID(): Int {

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitesmoke">
+
+        <TextView
+            android:id="@+id/tv_parentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:ellipsize="middle"
+            android:padding="@dimen/margin_size_12"
+            android:singleLine="true"
+            android:textColor="@color/blow_gray"
+            android:textSize="@dimen/font_size_16" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btnSelected"
+            android:layout_below="@+id/tv_parentName"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:background="@color/white"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/margin_size_10"
+            android:drawableTop="@drawable/ic_empty_list"
+            android:gravity="center"
+            android:text="@string/empty_files"
+            android:textColor="@color/blow_gray"
+            android:textSize="@dimen/font_size_16"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnSelected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/toolbar_button_bg"
+            android:paddingBottom="@dimen/margin_size_10"
+            android:paddingTop="@dimen/margin_size_10"
+            android:text="@string/selected"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18" />
+
+    </RelativeLayout>
+</LinearLayout>

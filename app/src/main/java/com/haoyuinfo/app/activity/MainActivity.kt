@@ -8,19 +8,24 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.haoyuinfo.app.R
-import com.haoyuinfo.app.base.BaseActivity
 import com.haoyuinfo.app.base.BaseResult
-import com.haoyuinfo.app.module.TrainEntity
+import com.haoyuinfo.app.entity.TrainEntity
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
-import com.haoyuinfo.app.utils.ScreenUtils
+import com.haoyuinfo.filepicker.FilePicker
+import com.haoyuinfo.library.base.BaseActivity
+import com.haoyuinfo.library.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_empty_train.*
+import kotlinx.android.synthetic.main.layout_main.*
+import kotlinx.android.synthetic.main.layout_main_train.*
 import kotlinx.android.synthetic.main.layout_menu.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import okhttp3.Request
 
 
 class MainActivity : BaseActivity() {
+
     override fun setLayoutResID(): Int {
         return R.layout.activity_main
     }
@@ -28,7 +33,7 @@ class MainActivity : BaseActivity() {
     override fun setUp() {
         setDrawer()
         setMenu()
-        setToolTitle("乐高教育在幼儿园课堂中的兴趣探讨")
+        setToolTitle(resources.getString(R.string.learn))
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp)
         toolbar.setNavigationOnClickListener { toggle() }
     }
@@ -48,6 +53,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setMenu() {
+        ll_userInfo.setOnClickListener { FilePicker().with(this).withRequestCode(1).start() }
         tv_learn.setOnClickListener { toggle() }
     }
 
@@ -66,9 +72,29 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onResponse(response: BaseResult<List<TrainEntity>>?) {
+                if (response == null) {
 
+                } else {
+                    val list = response.responseData
+                    if (list != null && list.isNotEmpty()) {
+                        llMain.visibility = View.VISIBLE
+                        bindData(list)
+                    } else {
+                        llEmpty.visibility = View.VISIBLE
+                        llCmtsLearn.setOnClickListener { }
+                    }
+                }
             }
         }))
+    }
+
+    private fun bindData(mDatas: List<TrainEntity>) {
+        tvTrain.text = mDatas[0].name
+        tvTrain.setOnClickListener { showPop(mDatas) }
+    }
+
+    private fun showPop(mDatas: List<TrainEntity>) {
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

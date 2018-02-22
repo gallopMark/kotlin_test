@@ -4,10 +4,9 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.SearchView
 import android.text.TextUtils
 import android.widget.Toast
-import com.haoyuinfo.app.base.BaseActivity
 import com.haoyuinfo.app.R
+import com.haoyuinfo.library.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_search.*
-
 
 class SearchActivity : BaseActivity() {
     override fun setLayoutResID(): Int {
