@@ -1,7 +1,9 @@
 package com.haoyuinfo.app.activity
 
 import android.content.Intent
+import android.graphics.Rect
 import android.text.TextUtils
+import android.widget.ScrollView
 import android.widget.Toast
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.base.BaseResult
@@ -19,7 +21,9 @@ import java.util.*
 
 class LoginActivity : BaseActivity() {
 
+    private var requestUN = true
     private var remember = false
+
     override fun setLayoutResID(): Int {
         return R.layout.activity_login
     }
@@ -30,11 +34,49 @@ class LoginActivity : BaseActivity() {
             etPassword.setText(getPassWord())
         }
         cbRemember.setOnCheckedChangeListener { _, isChecked -> remember = isChecked }
+        etAccount.setOnTouchListener { _, _ ->
+            requestUN = true
+            false
+        }
+        etPassword.setOnTouchListener { _, _ ->
+            requestUN = false
+            false
+        }
         bt_login.setOnClickListener {
             val account = etAccount.text.toString()
             val password = etPassword.text.toString()
             login(account, password)
             bt_login.isEnabled = false
+        }
+        controlKeyboardLayout()
+    }
+
+    private fun controlKeyboardLayout() {
+        val rootView = findViewById<ScrollView>(R.id.rootView)
+        rootView.viewTreeObserver.addOnGlobalLayoutListener({
+            val rect = Rect()
+            //获取root在窗体的可视区域
+            rootView.getWindowVisibleDisplayFrame(rect)
+            //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+            val rootInvisibleHeight = rootView.rootView.height - rect.bottom
+            //若不可视区域高度大于100，则键盘显示
+            if (rootInvisibleHeight > 100) {
+                rootView.fullScroll(ScrollView.FOCUS_DOWN) //滚动到底部
+            } else {
+                //键盘隐藏
+                rootView.fullScroll(ScrollView.FOCUS_UP) //滚动到顶部
+            }
+            requestFocus()
+        })
+    }
+
+    private fun requestFocus() {
+        if (requestUN) {
+            etAccount.requestFocus()
+            etPassword.clearFocus()
+        } else {
+            etAccount.clearFocus()
+            etPassword.requestFocus()
         }
     }
 
@@ -77,6 +119,7 @@ class LoginActivity : BaseActivity() {
                     it.role?.let {
                         if (it.contains("student")) {
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
                         }
                     }
                     saveUser(it)
@@ -98,8 +141,8 @@ class LoginActivity : BaseActivity() {
         } else {
             ""
         }
+        map["isLogin"] = remember
         map["remember"] = remember
-        map["isLogin"] = true
         PreferenceUtils.saveUser(this, map)
     }
 }

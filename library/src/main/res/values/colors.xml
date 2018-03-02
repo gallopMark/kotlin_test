@@ -8,11 +8,11 @@
     <color name="menuStartColor">#012027</color>
     <color name="menuCenterColor">#01637a</color>
     <color name="menuEndColor">@color/colorPrimary</color>
+    <color name="itemDivider">#ffedeeef</color>
 
     <color name="startColor">@color/colorPrimary</color>
     <color name="centerColor">#1095E4</color>
     <color name="endColor">#1980E3</color>
-    <color name="transparent">#00000000</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="black">#000000</color><!--黑色 -->
     <color name="white">#FFFFFF</color><!--白色-->
@@ -154,4 +154,9 @@
     <color name="palevioletred">#db7093</color><!--苍紫罗兰色 -->
     <color name="darkviolet">#9400d3</color><!--暗紫罗兰色 -->
     <color name="mediumorchid">#ba55d3</color><!--中粉紫色 -->
+
+    <color name="whitetransparent">#b3ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="blacktransparent">#b3000000</color>
+    <color name="translucent">#80000000</color>
 </resources>

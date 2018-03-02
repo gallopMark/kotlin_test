@@ -1,0 +1,15 @@
+<resources>
+    <string name="photos">相册</string>
+    <string name="videos">视频</string>
+    <string name="myPhotos">我的相册</string>
+    <string name="myVideos">我的视频</string>
+    <string name="allPhotos">所有图片</string>
+    <string name="allVideos">所有视频</string>
+    <string name="takePhoto">拍照</string>
+    <string name="recordVideo">录像</string>
+    <string name="preview">预览</string>
+    <string name="finish">完成</string>
+    <string name="select">选择</string>
+    <string name="open_settings">打开设置</string>
+    <string name="without_permission">存储权限已被禁止，无法加载系统相册</string>
+</resources>

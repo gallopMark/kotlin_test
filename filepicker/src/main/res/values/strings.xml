@@ -1,4 +1,19 @@
 <resources>
-    <string name="empty_files">没有可选择文件~</string>
-    <string name="selected">选中</string>
+    <string name="empty_files">无可选文件</string>
+    <string name="selected">已选</string>
+    <string name="type_archive">压缩包</string>
+    <string name="type_certificate">证书</string>
+    <string name="type_directory">目录</string>
+    <string name="type_document">文件</string>
+    <string name="type_drawing">图片</string>
+    <string name="type_excel">EXCEL</string>
+    <string name="type_image">照片</string>
+    <string name="type_music">音乐</string>
+    <string name="type_video">视频</string>
+    <string name="type_pdf">PDF</string>
+    <string name="type_power_point">PPT</string>
+    <string name="type_word">WORD</string>
+    <string name="type_apk">APK</string>
+    <string name="open_settings">打开设置</string>
+    <string name="without_permission">存储权限已被禁止，无法预览系统文件</string>
 </resources>

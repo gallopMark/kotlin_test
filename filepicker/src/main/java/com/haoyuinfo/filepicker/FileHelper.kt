@@ -7,20 +7,18 @@ import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-object FileMamagerHelper {
 
-    fun getFilesByPath(path: String?, filter: FileFilter): ArrayList<File> {
+object FileHelper {
+
+    fun getFilesByPath(path: String?, filter: FileFilter): MutableList<File> {
         if (TextUtils.isEmpty(path)) return ArrayList()
         return getFilesByFile(File(path), filter)
     }
 
-    fun getFilesByFile(file: File?, filter: FileFilter): ArrayList<File> {
-        if (file != null && file.exists()) {
+    private fun getFilesByFile(file: File, filter: FileFilter): MutableList<File> {
+        if (file.exists()) {
             val files = file.listFiles(filter) ?: return ArrayList()
-            val list = ArrayList<File>()
-            for (f in files) {
-                list.add(f)
-            }
+            val list = files.toMutableList()
             Collections.sort(list, FileComparator())
             return list
         }
@@ -44,10 +42,10 @@ object FileMamagerHelper {
         return File(path).parent
     }
 
-    fun getReadableFileSize(fileSize: Long): String {
-        if (fileSize <= 0) return "0B"
-        val units = arrayOf("B", "KB", "M", "G", "T")
-        val digitGroups = (Math.log10(fileSize.toDouble()) / Math.log10(1024.toDouble())).toInt()
-        return DecimalFormat("#.0").format(fileSize / Math.pow(1024.toDouble(), fileSize.toDouble())) + units[digitGroups]
+    fun getReadableFileSize(size: Long): String {
+        if (size <= 0) return "0"
+        val units = arrayOf("B", "KB", "MB", "GB", "TB")
+        val digitGroups = (Math.log10(size.toDouble()) / Math.log10(1024.0)).toInt()
+        return DecimalFormat("#").format(size / Math.pow(1024.0, digitGroups.toDouble())) + " " + units[digitGroups]
     }
 }

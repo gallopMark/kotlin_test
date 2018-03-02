@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.haoyuinfo.mediapicker.view.PhotoViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:overScrollMode="never" />
+
+    <android.support.v7.widget.Toolbar style="@style/AppToolBarStyle">
+
+        <TextView style="@style/ToolbarTitleTextView" />
+
+        <TextView
+            android:id="@+id/tvFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/margin_size_6"
+            android:gravity="center"
+            android:minWidth="@dimen/margin_size_70"
+            android:paddingLeft="@dimen/margin_size_12"
+            android:paddingRight="@dimen/margin_size_12"
+            android:text="@string/finish"
+            android:textColor="@color/textview_bg"
+            android:textSize="@dimen/font_size_16" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/blacktransparent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:overScrollMode="never"
+            android:padding="@dimen/margin_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_size_1"
+            android:background="@color/gainsboro" />
+
+        <LinearLayout
+            android:id="@+id/llCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_size_16">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="@dimen/margin_size_20"
+                android:layout_height="@dimen/margin_size_20"
+                android:layout_gravity="center"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_size_8"
+                android:text="@string/select"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_16" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</FrameLayout>

@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/filepicker/filepicker.iml" filepath="$PROJECT_DIR$/filepicker/filepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/kotlin_test.iml" filepath="$PROJECT_DIR$/kotlin_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mediapicker/mediapicker.iml" filepath="$PROJECT_DIR$/mediapicker/mediapicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingmenu/slidingmenu.iml" filepath="$PROJECT_DIR$/slidingmenu/slidingmenu.iml" />
     </modules>
   </component>

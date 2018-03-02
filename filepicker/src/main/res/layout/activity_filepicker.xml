@@ -1,62 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar" />
-
-    <RelativeLayout
-        android:id="@+id/container"
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        style="@style/AppToolBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whitesmoke">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_parentName"
-            android:layout_width="match_parent"
+            android:id="@id/toolbar_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_size_8"
+            android:layout_marginRight="@dimen/margin_size_8"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/app_title_textsize" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/llTips"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_size_16"
             android:background="@color/white"
-            android:ellipsize="middle"
-            android:padding="@dimen/margin_size_12"
-            android:singleLine="true"
+            android:lineSpacingExtra="@dimen/margin_size_2"
+            android:text="@string/without_permission"
             android:textColor="@color/blow_gray"
             android:textSize="@dimen/font_size_16" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recylerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btnSelected"
-            android:layout_below="@+id/tv_parentName"
-            android:layout_marginTop="@dimen/margin_size_1"
-            android:background="@color/white"
-            android:overScrollMode="never" />
-
-        <TextView
-            android:id="@+id/emptyView"
+        <Button
+            android:id="@+id/bt_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="@dimen/margin_size_10"
-            android:drawableTop="@drawable/ic_empty_list"
-            android:gravity="center"
-            android:text="@string/empty_files"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_16"
-            android:visibility="gone" />
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:background="@drawable/toolbar_button_bg"
+            android:paddingBottom="@dimen/margin_size_10"
+            android:paddingLeft="@dimen/margin_size_30"
+            android:paddingRight="@dimen/margin_size_30"
+            android:paddingTop="@dimen/margin_size_10"
+            android:text="@string/open_settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/itemDivider"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/llParant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whitesmoke"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_size_4"
+            android:paddingLeft="@dimen/margin_size_12"
+            android:paddingRight="@dimen/margin_size_12"
+            android:paddingTop="@dimen/margin_size_4">
+
+            <ImageView
+                android:id="@+id/icFolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_folder_48dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_size_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="start"
+                    android:singleLine="true"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_12" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="父目录"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_14" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:layout_weight="1"
+            android:background="@color/white">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recylerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/margin_size_16"
+                android:drawableTop="@drawable/ic_file_gray_116dp"
+                android:gravity="center"
+                android:text="@string/empty_files"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_16"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <Button
             android:id="@+id/btnSelected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:background="@drawable/toolbar_button_bg"
             android:paddingBottom="@dimen/margin_size_10"
             android:paddingTop="@dimen/margin_size_10"
             android:text="@string/selected"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18" />
+            android:textSize="@dimen/font_size_18"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

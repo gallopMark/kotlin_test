@@ -1,6 +1,7 @@
 package com.haoyuinfo.app.activity
 
-import android.support.v4.content.ContextCompat
+import android.content.Intent
+import android.graphics.Point
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.Menu
@@ -12,15 +13,15 @@ import com.haoyuinfo.app.base.BaseResult
 import com.haoyuinfo.app.entity.TrainEntity
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
-import com.haoyuinfo.filepicker.FilePicker
 import com.haoyuinfo.library.base.BaseActivity
 import com.haoyuinfo.library.utils.ScreenUtils
+import com.haoyuinfo.mediapicker.entity.MediaItem
+import com.haoyuinfo.mediapicker.utils.MediaPicker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_empty_train.*
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_main_train.*
 import kotlinx.android.synthetic.main.layout_menu.*
-import kotlinx.android.synthetic.main.layout_toolbar.*
 import okhttp3.Request
 
 
@@ -34,26 +35,54 @@ class MainActivity : BaseActivity() {
         setDrawer()
         setMenu()
         setToolTitle(resources.getString(R.string.learn))
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp)
-        toolbar.setNavigationOnClickListener { toggle() }
+        actionBar?.setNavigationIcon(R.drawable.ic_menu_white_24dp)
+        actionBar?.setNavigationOnClickListener { toggle() }
     }
 
     private fun setDrawer() {
         val width = ScreenUtils.getScreenWidth(this)
+        setDrawerLeftEdgeSize(0.6f)
         val params = menu.layoutParams
-        params.width = (width * 0.7).toInt()
+        params.width = (width * 0.75).toInt()
         menu.layoutParams = params
-        drawerLayout.setScrimColor(ContextCompat.getColor(this, R.color.transparent))
+//        drawerLayout.setScrimColor(ContextCompat.getColor(this, R.color.transparent))
         drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 //设置右面的布局位置  根据左面菜单的right作为右面布局的left   左面的right+屏幕的宽度（或者right的宽度这里是相等的）为右面布局的right
-                main.layout(menu.right, 0, menu.right + width, menu.height)
+                main.layout(menu.right, main.top, menu.right + width, menu.height)
             }
         })
     }
 
+    private fun setDrawerLeftEdgeSize(displayWidthPercentage: Float) {
+        try {
+            // 找到 ViewDragHelper 并设置 Accessible 为true
+            val leftDraggerField = drawerLayout.javaClass.getDeclaredField("mLeftDragger")
+            leftDraggerField.isAccessible = true
+            val leftDragger = leftDraggerField.get(drawerLayout)
+            val edgeSizeField = leftDragger.javaClass.getDeclaredField("mEdgeSize")
+            // 找到 edgeSizeField 并设置 Accessible 为true
+            edgeSizeField.isAccessible = true
+            val edgeSize = edgeSizeField.getInt(leftDragger)
+            // 设置新的边缘大小
+            val displaySize = Point()
+            windowManager.defaultDisplay.getSize(displaySize)
+            edgeSizeField.setInt(leftDragger, Math.max(edgeSize, (displaySize.x * displayWidthPercentage).toInt()))
+        } catch (e: Exception) {
+
+        }
+    }
+
     private fun setMenu() {
-        ll_userInfo.setOnClickListener { FilePicker().with(this).withRequestCode(1).start() }
+        ll_userInfo.setOnClickListener {
+            MediaPicker.Builder(this)
+                    .mode(MediaItem.TYPE_PHOTO)
+                    .mutilyMode(true)
+                    .limit(9)
+                    .withRequestCode(1)
+                    .build()
+                    .openActivity()
+        }
         tv_learn.setOnClickListener { toggle() }
     }
 
@@ -95,6 +124,17 @@ class MainActivity : BaseActivity() {
 
     private fun showPop(mDatas: List<TrainEntity>) {
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == RESULT_OK) {
+            val images = data?.getParcelableArrayListExtra<MediaItem>(MediaPicker.EXTRA_PATHS)
+            images?.let {
+                for (item in it) {
+                    println("path:${item.path}")
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

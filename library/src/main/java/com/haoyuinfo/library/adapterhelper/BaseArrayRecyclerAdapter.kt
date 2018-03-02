@@ -3,8 +3,8 @@ package com.haoyuinfo.app.adapterhelper
 
 abstract class BaseArrayRecyclerAdapter<T>(var mDatas: MutableList<T>) : BaseRecyclerAdapter() {
 
-    override fun getItem(position: Int): T? {
-        return if (position < 0 || position >= mDatas.size) null else mDatas[position]
+    override fun getItem(position: Int): T {
+        return mDatas[position]
     }
 
     fun bindData(isRefresh: Boolean, datas: List<T>?): Boolean {
@@ -96,7 +96,6 @@ abstract class BaseArrayRecyclerAdapter<T>(var mDatas: MutableList<T>) : BaseRec
         }
         return false
     }
-
 
     override fun onBindViewHolder(holder: BaseRecyclerAdapter.RecyclerHolder, position: Int) {
         onBindHoder(holder, mDatas[position], position)

@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbarLayout"
-        layout="@layout/layout_toolbar" />
+    <android.support.v7.widget.Toolbar style="@style/AppToolBarStyle">
+
+        <TextView style="@style/ToolbarTitleTextView" />
+    </android.support.v7.widget.Toolbar>
 
     <include
         android:id="@+id/llEmpty"

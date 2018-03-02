@@ -12,6 +12,7 @@ import io.reactivex.disposables.Disposable
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    var actionBar: Toolbar? = null
     private val rxDisposables = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun setToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar?.title = ""
-        setSupportActionBar(toolbar)
+        actionBar = findViewById<Toolbar>(R.id.toolbar)
+        actionBar?.title = ""
+        actionBar?.setNavigationIcon(R.drawable.ic_back_white_24dp)
+        setSupportActionBar(actionBar)
+        actionBar?.setNavigationOnClickListener { finish() }
         //显示NavigationIcon,这个方法是ActionBar的方法.Toolbar没有这个方法
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar?.setNavigationIcon(R.drawable.ic_back_white_24dp)
     }
 
     fun setToolTitle(title: CharSequence) {
