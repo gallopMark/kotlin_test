@@ -1,6 +1,7 @@
 package com.haoyuinfo.mediapicker
 
 import android.content.Intent
+import android.support.v4.util.ArrayMap
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_preview.*
 class PreViewActivity : BaseActivity() {
 
     private val images = ArrayList<MediaItem>()
-    private val checkItems = ArrayList<MediaItem>()
+    private val checkItems = ArrayMap<Int, MediaItem>()
     private lateinit var adapter: ImagePageAdapter
     private lateinit var imageAdapter: ImageAdapter
     private var isOnClickBack = false
@@ -27,7 +28,9 @@ class PreViewActivity : BaseActivity() {
         val arrays = intent.getParcelableArrayListExtra<MediaItem>("images")
         arrays?.let {
             images.addAll(it)
-            checkItems.addAll(it)
+            for (i in 0 until it.size) {
+                checkItems[i] = it[i]
+            }
         }
         adapter = ImagePageAdapter(this, images)
         viewPager.adapter = adapter
@@ -87,13 +90,9 @@ class PreViewActivity : BaseActivity() {
         })
         llCheck.setOnClickListener { checkBox.isChecked = !checkBox.isChecked }
         checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
-                checkItems.removeAt(viewPager.currentItem)
-            } else {
-                checkItems.add(viewPager.currentItem, images[viewPager.currentItem])
-            }
-            setFinishButton()
+            if (!isChecked) checkItems.remove(viewPager.currentItem) else checkItems[viewPager.currentItem] = images[viewPager.currentItem]
             imageAdapter.setUnCheckItem(viewPager.currentItem, isChecked)
+            setFinishButton()
         }
         tvFinish.setOnClickListener {
             isOnClickBack = true
@@ -108,7 +107,10 @@ class PreViewActivity : BaseActivity() {
     }
 
     override fun finish() {
-        val intent = Intent().apply { putParcelableArrayListExtra("images", checkItems) }
+        val intent = Intent().apply {
+            val images = ArrayList<MediaItem>().apply { addAll(checkItems.values) }
+            putParcelableArrayListExtra("images", images)
+        }
         val resultCode = if (isOnClickBack) RESULT_OK else RESULT_CANCELED
         setResult(resultCode, intent)
         super.finish()
