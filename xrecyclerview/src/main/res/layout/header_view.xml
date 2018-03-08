@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/itemDivider"
+    android:gravity="bottom">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <ImageView
+            android:id="@+id/ic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_size_45"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/statu_content"
+            android:src="@drawable/ic_refresh_arrow" />
+
+        <ImageView
+            android:id="@+id/ic_refreshing"
+            android:layout_width="@dimen/margin_size_30"
+            android:layout_height="@dimen/margin_size_30"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/statu_content"
+            android:src="@drawable/anim_loading"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ic_refresh_statu"
+            android:layout_width="@dimen/margin_size_30"
+            android:layout_height="@dimen/margin_size_30"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/statu_content"
+            android:src="@drawable/ic_refresh_succeed"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/statu_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/margin_size_20"
+            android:gravity="center"
+            android:minWidth="@dimen/margin_size_100"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_refresh_statu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/xrecyclerview_header_hint_normal"
+                android:textSize="@dimen/font_size_16" />
+
+            <TextView
+                android:id="@+id/tv_refresh_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_size_4"
+                android:text="@string/xrecyclerview_header_last_time"
+                android:textSize="@dimen/font_size_14"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

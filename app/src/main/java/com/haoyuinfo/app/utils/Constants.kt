@@ -8,4 +8,5 @@ object Constants {
     const val SERVICE = "$OUTRT_NET/shiro-cas"
     const val MAIN_URL = "$OUTRT_NET/m/uc/listMyTrain"
     const val NOSESSION = "\"responseMsg\":\"no session\""
+    const val PEER_URL = "$OUTRT_NET/m/user"
 }

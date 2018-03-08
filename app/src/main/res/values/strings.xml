@@ -19,4 +19,13 @@
     <string name="cmts_development">研修社区</string>
     <string name="empty_course">暂时没有选课</string>
     <string name="empty_workshop">暂时没有参与工作坊</string>
+
+    <string name="cmts_says">研说</string>
+    <string name="cmts_build">发布</string>
+    <string name="cmts_lesson">创课</string>
+    <string name="cmts_activity">活动</string>
+
+    <string name="relatedWS">与我相关</string>
+    <string name="all">全部</string>
+
 </resources>

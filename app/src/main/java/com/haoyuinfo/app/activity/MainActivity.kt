@@ -42,9 +42,9 @@ class MainActivity : BaseActivity() {
     private fun setDrawer() {
         val width = ScreenUtils.getScreenWidth(this)
         setDrawerLeftEdgeSize(0.6f)
-        val params = menu.layoutParams
-        params.width = (width * 0.75).toInt()
-        menu.layoutParams = params
+//        val params = menu.layoutParams
+//        params.width = (width * 0.75).toInt()
+//        menu.layoutParams = params
 //        drawerLayout.setScrimColor(ContextCompat.getColor(this, R.color.transparent))
         drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -84,6 +84,24 @@ class MainActivity : BaseActivity() {
                     .openActivity()
         }
         tv_learn.setOnClickListener { toggle() }
+        val listener = View.OnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.type = when (it.id) {
+                R.id.tv_teaching -> MenuActivity.TYPE_CMTS
+                R.id.tv_peer -> MenuActivity.TYPE_PEER
+                R.id.tv_message -> MenuActivity.TYPE_MESSAGE
+                R.id.tv_wsGroup -> MenuActivity.TYPE_WORKSHOP
+                R.id.tv_consulting -> MenuActivity.TYPE_CONSULT
+                else -> MenuActivity.TYPE_SETTINGS
+            }
+            startActivity(intent)
+        }
+        tv_teaching.setOnClickListener(listener)
+        tv_peer.setOnClickListener(listener)
+        tv_message.setOnClickListener(listener)
+        tv_wsGroup.setOnClickListener(listener)
+        tv_consulting.setOnClickListener(listener)
+        tv_settings.setOnClickListener(listener)
     }
 
     private fun toggle() {

@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_size_50"
+            android:layout_marginTop="@dimen/margin_size_30"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/margin_size_20"
             android:paddingTop="@dimen/margin_size_20">
@@ -60,15 +61,21 @@
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/margin_size_50"
+            android:background="@color/whitetransparent" />
+
         <TextView
             android:id="@+id/tv_learn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_learn"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/learn"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -77,11 +84,11 @@
             android:id="@+id/tv_teaching"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_tr"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/teachingResearch"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -90,11 +97,11 @@
             android:id="@+id/tv_peer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_peer"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/peer"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -103,11 +110,11 @@
             android:id="@+id/tv_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_message"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/message"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -116,25 +123,25 @@
             android:id="@+id/tv_course"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_course"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/courseCenter"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18"
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/tv_workshop"
+            android:id="@+id/tv_wsGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_ws"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/workshopGroup"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -143,11 +150,11 @@
             android:id="@+id/tv_consulting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_ec"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/consulting"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />
@@ -156,11 +163,11 @@
             android:id="@+id/tv_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_size_50"
             android:layout_marginTop="@dimen/margin_size_20"
             android:drawableLeft="@drawable/menu_settings"
             android:drawablePadding="@dimen/margin_size_30"
             android:gravity="center|left"
+            android:paddingLeft="@dimen/margin_size_50"
             android:text="@string/settings"
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_18" />

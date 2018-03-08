@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ijkplayer</string>
+    <string name="network_hint">您正在使用3G/4G网络\n继续播放讲产生流量费用</string>
+    <string name="continue_hine">继续播放</string>
+    <string name="network_outline">当前没有网络连接\n请重新打开网络设置</string>
+    <string name="play_error">无法播放此视频</string>
+</resources>

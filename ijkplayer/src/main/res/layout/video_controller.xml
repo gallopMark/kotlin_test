@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_size_16">
+
+        <ImageView
+            android:id="@+id/mBackView"
+            android:layout_width="@dimen/margin_size_30"
+            android:layout_height="@dimen/margin_size_30"
+            android:layout_gravity="center"
+            android:background="@drawable/oval_back_bg"
+            app:srcCompat="@drawable/ic_keyboard_back_24dp" />
+
+        <TextView
+            android:id="@+id/mTitleView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_size_16"
+            android:layout_marginRight="@dimen/margin_size_16"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <tv.danmaku.ijk.media.widget.BatteryView
+                android:id="@+id/batterView"
+                android:layout_width="24dp"
+                android:layout_height="@dimen/margin_size_12"
+                android:layout_gravity="center"
+                app:battery_fill_color="@color/colorPrimary"
+                app:battery_orientation="horizontal"
+                app:battery_strokeWidth="@dimen/margin_size_1"
+                app:battery_stroke_color="@color/white"
+                app:battery_top_width="@dimen/margin_size_3" />
+
+            <TextView
+                android:id="@+id/tvCurrentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_13" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/translucent"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_size_8">
+
+        <ImageView
+            android:id="@+id/ivPlayState"
+            android:layout_width="@dimen/margin_size_35"
+            android:layout_height="@dimen/margin_size_35"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_play_24dp" />
+
+        <TextView
+            android:id="@+id/tv_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_size_8"
+            android:text="00:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:maxHeight="@dimen/margin_size_4"
+            android:minHeight="@dimen/margin_size_4"
+            android:progressDrawable="@drawable/seekbar_progressdrawable"
+            android:thumb="@drawable/seekbar_thumb"
+            android:thumbOffset="0dp" />
+
+        <TextView
+            android:id="@+id/tv_videoSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/margin_size_8"
+            android:text="00:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_18" />
+    </LinearLayout>
+</FrameLayout>

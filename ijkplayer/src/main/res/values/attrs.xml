@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VideoView">
+        <attr name="enableSurfaceView" format="boolean" />
+        <attr name="enableTextureView" format="boolean" />
+        <attr name="enableNoView" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BatteryView">
+        <attr name="battery_orientation">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="battery_strokeWidth" format="dimension" />
+        <attr name="battery_stroke_color" format="color" />
+        <attr name="battery_fill_color" format="color" />
+        <attr name="battery_current_power" format="integer" />
+        <attr name="battery_total_power" format="integer" />
+        <attr name="battery_top_width" format="dimension"/>
+    </declare-styleable>
+</resources>

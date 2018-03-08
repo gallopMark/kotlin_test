@@ -33,12 +33,17 @@
             android:name=".activity.LoginActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MenuActivity" />
         <activity
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.haoyuinfo.mediapicker.MediaGridActivity" />
         <activity android:name="com.haoyuinfo.mediapicker.PreViewActivity" />
         <activity android:name="com.haoyuinfo.filepicker.FilePickerActivity" />
+        <activity
+            android:name="tv.danmaku.ijk.media.ui.VideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

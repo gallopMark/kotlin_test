@@ -1,0 +1,18 @@
+<resources>
+    <string name="xrecyclerview_header_hint_normal">下拉刷新</string>
+    <string name="xrecyclerview_header_hint_ready">释放立即刷新</string>
+    <string name="xrecyclerview_header_hint_loading">正在刷新…</string>
+    <string name="xrecyclerview_header_hint_refresh_success">刷新成功</string>
+    <string name="xrecyclerview_header_hint_refresh_failure">刷新失败</string>
+    <string name="refresh_done">刷新完成</string>
+    <string name="click_to_loadmore">点击加载更多数据</string>
+    <string name="xrecyclerview_header_last_time">最近更新：</string>
+    <string name="xrecyclerview_footer_loadmore">加载更多…</string>
+    <string name="xrecyclerview_footer_loading">正在加载…</string>
+    <string name="xrecyclerview_footer_hint_normal">加载更多</string>
+    <string name="xrecyclerview_footer_hint_ready">释放立即加载</string>
+    <string name="xrecyclerview_footer_hint_failure">加载失败，请点击重试</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+</resources>

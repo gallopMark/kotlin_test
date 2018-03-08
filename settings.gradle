@@ -1,1 +1,1 @@
-include ':app', ':slidingmenu', ':filepicker', ':library', ':mediapicker'
+include ':app', ':filepicker', ':library', ':mediapicker', ':xrecyclerview', ':ijkplayer'
