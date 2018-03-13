@@ -243,7 +243,7 @@ class VideoView : FrameLayout, MediaController.MediaPlayerControl {
         val am = mAppContext?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         am.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
         try {
-            val ijkMediaPlayer = IjkMediaPlayer().apply {
+            mMediaPlayer = IjkMediaPlayer().apply {
                 //                ijkMediaPlayer.native_setLogLevel(isDebug ? IjkMediaPlayer.IJK_LOG_DEBUG : IjkMediaPlayer.IJK_LOG_ERROR);
                 if (usingMediaCodec) {
                     setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1)
@@ -273,40 +273,32 @@ class VideoView : FrameLayout, MediaController.MediaPlayerControl {
                 setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", 10000000)
                 setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1)
                 setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48)
-            }
-            mMediaPlayer = ijkMediaPlayer
-            // a context for the subtitle renderers
-            // REMOVED: SubtitleController
-            // REMOVED: mAudioSession
-            mMediaPlayer?.let {
-                it.setOnPreparedListener(mPreparedListener)
-                it.setOnVideoSizeChangedListener(mSizeChangedListener)
-                it.setOnCompletionListener(mCompletionListener)
-                it.setOnErrorListener(mErrorListener)
-                it.setOnInfoListener(mInfoListener)
-                it.setOnBufferingUpdateListener(mBufferingUpdateListener)
-                it.setOnVideoSizeChangedListener(mVideoSizeChangedListener)
-                it.setOnSeekCompleteListener(mSeekCompleteListener)
+            }.apply {
+                setOnPreparedListener(mPreparedListener)
+                setOnVideoSizeChangedListener(mSizeChangedListener)
+                setOnCompletionListener(mCompletionListener)
+                setOnErrorListener(mErrorListener)
+                setOnInfoListener(mInfoListener)
+                setOnBufferingUpdateListener(mBufferingUpdateListener)
+                setOnVideoSizeChangedListener(mVideoSizeChangedListener)
+                setOnSeekCompleteListener(mSeekCompleteListener)
                 mCurrentBufferPercentage = 0
                 val scheme = mUri?.scheme
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (TextUtils.isEmpty(scheme) || scheme.equals("file", ignoreCase = true))) {
                     val dataSource = FileMediaDataSource(File(mUri.toString()))
-                    it.setDataSource(dataSource)
+                    setDataSource(dataSource)
                 } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                    it.setDataSource(mAppContext, mUri, mHeaders)
+                    setDataSource(mAppContext, mUri, mHeaders)
                 } else {
-                    it.dataSource = mUri.toString()
+                    dataSource = mUri.toString()
                 }
                 bindSurfaceHolder(mMediaPlayer, mSurfaceHolder)
-                it.setAudioStreamType(AudioManager.STREAM_MUSIC)
-                it.setScreenOnWhilePlaying(true)
-                it.prepareAsync()
+                setAudioStreamType(AudioManager.STREAM_MUSIC)
+                setScreenOnWhilePlaying(true)
+                prepareAsync()
                 mCurrentState = STATE_PREPARING
                 attachMediaController()
             }
-            // REMOVED: mPendingSubtitleTracks
-            // we don't set the target state here either, but preserve the
-            // target state that was there before.
         } catch (ex: Exception) {
             mCurrentState = STATE_ERROR
             mTargetState = STATE_ERROR
