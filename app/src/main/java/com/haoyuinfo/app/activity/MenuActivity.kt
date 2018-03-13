@@ -1,11 +1,14 @@
 package com.haoyuinfo.app.activity
 
+import android.os.Bundle
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.fragment.menu.*
 import com.haoyuinfo.library.base.BaseActivity
+import com.uuzuche.zxing.utils.CodeUtils
 
 class MenuActivity : BaseActivity() {
     companion object {
+        const val TYPE_CAPTURE_RESULT = "capture_result"
         const val TYPE_CMTS = "cmts"
         const val TYPE_PEER = "peer"
         const val TYPE_MESSAGE = "message"
@@ -18,11 +21,19 @@ class MenuActivity : BaseActivity() {
         return R.layout.activity_menu
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         val type = intent.type
         val transacation = supportFragmentManager.beginTransaction()
         var title = ""
         when (type) {
+            TYPE_CAPTURE_RESULT -> {
+                title = resources.getString(R.string.scan_result)
+                transacation.replace(R.id.content, CaptureResultFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(CodeUtils.RESULT_STRING, intent.getStringExtra(CodeUtils.RESULT_STRING))
+                    }
+                })
+            }
             TYPE_CMTS -> {
                 title = resources.getString(R.string.teachingResearch)
                 transacation.replace(R.id.content, CommunityFragment())

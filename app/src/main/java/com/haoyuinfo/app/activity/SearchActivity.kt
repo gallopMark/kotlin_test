@@ -1,5 +1,6 @@
 package com.haoyuinfo.app.activity
 
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.SearchView
 import android.text.TextUtils
@@ -13,7 +14,7 @@ class SearchActivity : BaseActivity() {
         return R.layout.activity_search
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         toolbar.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }

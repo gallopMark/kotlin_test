@@ -1,6 +1,7 @@
 package com.haoyuinfo.app.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
 import com.haoyuinfo.app.R
@@ -11,7 +12,7 @@ class SplashActivity : BaseActivity() {
         return R.layout.activity_splash
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         Handler(mainLooper).postDelayed({ enter() }, 2500)
     }
 

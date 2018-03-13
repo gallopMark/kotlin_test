@@ -1,8 +1,10 @@
 package com.haoyuinfo.app.base
 
-import android.app.Application
+import android.support.multidex.MultiDex
+import android.support.multidex.MultiDexApplication
+import com.tencent.bugly.crashreport.CrashReport
 
-class CompatApplication : Application() {
+class CompatApplication : MultiDexApplication() {
     companion object {
         private var instance: CompatApplication? = null
         fun instance() = instance
@@ -11,6 +13,8 @@ class CompatApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        MultiDex.install(this)
+        CrashReport.initCrashReport(this)
     }
 
 }

@@ -7,10 +7,7 @@ import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.net.ConnectivityManager
-import android.os.BatteryManager
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -79,7 +76,7 @@ class VideoPlayerActivity : BaseActivity() {
         return R.layout.activity_videoplayer
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         path = intent.getStringExtra("videoPath")
         isHttps = intent.getBooleanExtra("isHttps", true)
         val paths = arrayOf("https://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8",
@@ -348,7 +345,7 @@ class VideoPlayerActivity : BaseActivity() {
             val secondary = precent * duration / 100
             seekBar.secondaryProgress = secondary
         })
-        videoView.setOnErrorListener(IMediaPlayer.OnErrorListener { iMediaPlayer, framework_err, impl_err ->
+        videoView.setOnErrorListener(IMediaPlayer.OnErrorListener { iMediaPlayer, _, _ ->
             if (lastDuration < 0) {
                 lastDuration = iMediaPlayer.currentPosition
             }

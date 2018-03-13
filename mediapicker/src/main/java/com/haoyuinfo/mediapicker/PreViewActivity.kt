@@ -1,6 +1,7 @@
 package com.haoyuinfo.mediapicker
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
@@ -24,7 +25,7 @@ class PreViewActivity : BaseActivity() {
         return R.layout.activity_preview
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         val arrays = intent.getParcelableArrayListExtra<MediaItem>("images")
         arrays?.let {
             images.addAll(it)

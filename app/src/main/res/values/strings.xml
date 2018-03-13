@@ -5,6 +5,7 @@
     <string name="announcement">通知</string>
     <string name="send">发送</string>
 
+    <string name="scan_result">扫描结果</string>
     <string name="learn">学习</string>
     <string name="teachingResearch">教研</string>
     <string name="peer">同行</string>
@@ -13,6 +14,7 @@
     <string name="workshopGroup">工作坊群</string>
     <string name="consulting">教务咨询</string>
     <string name="settings">设置</string>
+    <string name="qr_code">二维码/条码</string>
 
     <string name="course_learn">课程学习</string>
     <string name="workshop_training">工作坊研修</string>

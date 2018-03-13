@@ -1,7 +1,12 @@
 package com.haoyuinfo.app.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Point
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.Menu
@@ -17,6 +22,7 @@ import com.haoyuinfo.library.base.BaseActivity
 import com.haoyuinfo.library.utils.ScreenUtils
 import com.haoyuinfo.mediapicker.entity.MediaItem
 import com.haoyuinfo.mediapicker.utils.MediaPicker
+import com.uuzuche.zxing.utils.CodeUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_empty_train.*
 import kotlinx.android.synthetic.main.layout_main.*
@@ -31,7 +37,7 @@ class MainActivity : BaseActivity() {
         return R.layout.activity_main
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         setDrawer()
         setMenu()
         setToolTitle(resources.getString(R.string.learn))
@@ -144,17 +150,6 @@ class MainActivity : BaseActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK) {
-            val images = data?.getParcelableArrayListExtra<MediaItem>(MediaPicker.EXTRA_PATHS)
-            images?.let {
-                for (item in it) {
-                    println("path:${item.path}")
-                }
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
@@ -163,13 +158,55 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_scan -> {
-                Toast.makeText(this, "扫一扫", Toast.LENGTH_LONG).show()
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    openCature()
+                } else {
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1)
+                }
             }
             R.id.action_msg -> {
-                Toast.makeText(this, "通知公告", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, AmapActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            openCature()
+        } else {
+            Toast.makeText(this, "扫描二维码需要打开相机和散光灯的权限", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun openCature() {
+        val intent = Intent(this, CaptureActivity::class.java)
+        startActivityForResult(intent, 2)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            1 -> {
+                if (resultCode == RESULT_OK) {
+                    val images = data?.getParcelableArrayListExtra<MediaItem>(MediaPicker.EXTRA_PATHS)
+                    images?.let {
+                        for (item in it) {
+                            println("path:${item.path}")
+                        }
+                    }
+                }
+            }
+            2 -> {
+                if (resultCode == RESULT_OK) {   //扫描结果
+                    val qrCode = data?.getStringExtra(CodeUtils.RESULT_STRING)
+                    val intent = Intent(this, MenuActivity::class.java)
+                    intent.type = MenuActivity.TYPE_CAPTURE_RESULT
+                    intent.putExtra(CodeUtils.RESULT_STRING, qrCode)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 }
 

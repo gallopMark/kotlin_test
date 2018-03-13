@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
@@ -35,7 +36,7 @@ class FilePickerActivity : BaseActivity() {
         return R.layout.activity_filepicker
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         setToolTitle("我的文件")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)

@@ -2,6 +2,7 @@ package com.haoyuinfo.app.activity
 
 import android.content.Intent
 import android.graphics.Rect
+import android.os.Bundle
 import android.text.TextUtils
 import android.widget.ScrollView
 import android.widget.Toast
@@ -28,7 +29,7 @@ class LoginActivity : BaseActivity() {
         return R.layout.activity_login
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         etAccount.setText(getAccount())
         if (isRemember()) {
             etPassword.setText(getPassWord())

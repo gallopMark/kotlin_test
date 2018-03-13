@@ -23,6 +23,7 @@ repositories {
 }
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation files('libs/xstream-1.4.9.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.3'

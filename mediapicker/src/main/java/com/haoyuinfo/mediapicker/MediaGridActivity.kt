@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
@@ -59,7 +60,7 @@ class MediaGridActivity : BaseActivity() {
         return R.layout.activity_media_grid
     }
 
-    override fun setUp() {
+    override fun setUp(savedInstanceState: Bundle?) {
         type = intent.getIntExtra("mode", MediaItem.TYPE_PHOTO)
         if (type == MediaItem.TYPE_PHOTO) {
             setToolTitle(resources.getString(R.string.photos))

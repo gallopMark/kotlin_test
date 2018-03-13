@@ -20,7 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
         AppManager.get().addActivity(this)
         setContentView(setLayoutResID())
         setToolbar()
-        setUp()
+        setUp(savedInstanceState)
         initData()
     }
 
@@ -41,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun setLayoutResID(): Int
 
-    abstract fun setUp()
+    abstract fun setUp(savedInstanceState: Bundle?)
 
     open fun initData() {
 
