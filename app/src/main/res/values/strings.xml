@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">乐高研修社区</string>
+    <string name="app_name">二师在线</string>
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    <string name="rememberpassword">记住密码</string>
+    <string name="login">登录</string>
     <string name="search">搜索</string>
     <string name="scan">扫一扫</string>
     <string name="announcement">通知</string>
@@ -16,11 +20,22 @@
     <string name="settings">设置</string>
     <string name="qr_code">二维码/条码</string>
 
+    <string name="emptyTrainInfo">暂无参与培训信息</string>
+    <string name="gotoCmtsLearn">进入社区，交流教学经验</string>
     <string name="course_learn">课程学习</string>
     <string name="workshop_training">工作坊研修</string>
     <string name="cmts_development">研修社区</string>
     <string name="empty_course">暂时没有选课</string>
+    <string name="gotoSelectCourse">前往选课>></string>
+    <string name="learnAndSelectCourse">开始学习，前往选课</string>
     <string name="empty_workshop">暂时没有参与工作坊</string>
+    <string name="gotoCreateWS">前往创建</string>
+
+    <string name="resources">资源</string>
+    <string name="discuss">讨论</string>
+    <string name="questions">问答</string>
+    <string name="progress">进度</string>
+    <string name="download">下载</string>
 
     <string name="cmts_says">研说</string>
     <string name="cmts_build">发布</string>

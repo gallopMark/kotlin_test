@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+
     defaultConfig {
         applicationId "com.haoyuinfo.app"
         minSdkVersion 14
@@ -12,7 +12,6 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
     }
     sourceSets {
         main {
@@ -41,12 +40,11 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     compile 'com.tencent.bugly:crashreport:latest.release'
-    compile 'com.android.support:multidex:1.0.3'
+    /*compile 'com.android.support:multidex:1.0.3'*/
     implementation project(':library')
     implementation project(':mediapicker')
     implementation project(':filepicker')
     implementation project(':xrecyclerview')
     implementation project(':ijkplayer')
     implementation project(':zxing-lib')
-    implementation files('libs/AMap3DMap_6.0.1_AMapNavi_6.0.1_AMapSearch_5.7.0_AMapLocation_3.8.0_20180309.jar')
 }

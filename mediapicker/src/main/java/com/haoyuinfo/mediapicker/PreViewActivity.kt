@@ -45,10 +45,9 @@ class PreViewActivity : BaseActivity() {
         } else {
             setToolTitle("0/0")
         }
-        setListener()
     }
 
-    private fun setListener() {
+    override fun setListener() {
         adapter.setOnItemClickListener(object : ImagePageAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, path: MediaItem) {
                 if (llBottom.visibility == View.VISIBLE) {

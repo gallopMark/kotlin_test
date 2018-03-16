@@ -56,7 +56,7 @@ class PeerFragment : BaseFragment(), XRecyclerView.LoadingListener {
                 } else if (isLoadMore) {
                     xRecyclerView.loadMoreComplete(true)
                 }
-                response?.responseData?.getmUsers()?.let {
+                response?.getResponseData()?.getmUsers()?.let {
                     if (isRefresh) {
                         mDatas.clear()
                     }

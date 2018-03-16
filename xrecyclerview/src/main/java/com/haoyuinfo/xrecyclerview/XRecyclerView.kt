@@ -60,7 +60,7 @@ class XRecyclerView : RecyclerView {
         mHeader.setArrowImageView(resId)
     }
 
-    fun setArrowColorFilter(color:Int){
+    fun setArrowColorFilter(color: Int) {
         mHeader.setArrowColorFilter(color)
     }
 
@@ -112,17 +112,16 @@ class XRecyclerView : RecyclerView {
         if (state == RecyclerView.SCROLL_STATE_IDLE && loadingMoreEnabled) {
             val layoutManager = layoutManager
             val lastVisibleItemPosition: Int  //最后可见的Item的position的值
-            if (layoutManager is GridLayoutManager) {   //网格布局的中lastVisibleItemPosition的取值
-                lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-            } else if (layoutManager is StaggeredGridLayoutManager) {//瀑布流布局中lastVisibleItemPosition的取值
+            lastVisibleItemPosition = (layoutManager as? GridLayoutManager)?.findLastVisibleItemPosition()
+                    ?: if (layoutManager is StaggeredGridLayoutManager) {//瀑布流布局中lastVisibleItemPosition的取值
                 val into = IntArray(layoutManager.spanCount)
                 layoutManager.findLastVisibleItemPositions(into)
-                lastVisibleItemPosition = findMax(into)
+                findMax(into)
             } else {   //剩下只有线性布局（listview）中lastVisibleItemPosition的取值
-                lastVisibleItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
             }
-            if (layoutManager.childCount > 0
-                    && lastVisibleItemPosition >= layoutManager.itemCount - 1 && layoutManager.itemCount > layoutManager.childCount
+            if (layoutManager.childCount > 0 && lastVisibleItemPosition >= layoutManager.itemCount - 1
+                    && layoutManager.itemCount > layoutManager.childCount
                     && mHeader.getState() < XRecyclerViewHeader.STATE_REFRESHING) {
                 mFooter.setState(XRecyclerViewFooter.STATE_LOADING)
                 mLoadingListener?.onLoadMore()
@@ -215,7 +214,7 @@ class XRecyclerView : RecyclerView {
      */
     private inner class WrapAdapter(private val mHeaderViews: ArrayList<View>,
                                     private val mFootView: XRecyclerViewFooter,
-                                    private val adapter: Adapter<RecyclerView.ViewHolder>?) : Adapter<RecyclerView.ViewHolder>() {
+                                    private val adapter: Adapter<RecyclerView.ViewHolder>) : Adapter<RecyclerView.ViewHolder>() {
         private var headerPosition = 1
 
         val headersCount: Int
@@ -224,9 +223,9 @@ class XRecyclerView : RecyclerView {
         val footersCount: Int
             get() = 1
 
-        override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+        override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
             super.onAttachedToRecyclerView(recyclerView)
-            val manager = recyclerView?.layoutManager
+            val manager = recyclerView.layoutManager
             if (manager is GridLayoutManager) {
                 manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -239,9 +238,9 @@ class XRecyclerView : RecyclerView {
             }
         }
 
-        override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder?) {
+        override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
             super.onViewAttachedToWindow(holder)
-            val lp = holder?.itemView?.layoutParams
+            val lp = holder.itemView?.layoutParams
             if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams && (isHeader(holder.layoutPosition) || isFooter(holder.layoutPosition))) {
                 lp.isFullSpan = true
             }
@@ -259,15 +258,13 @@ class XRecyclerView : RecyclerView {
             return position == 0
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
-            if (viewType == TYPE_REFRESH_HEADER) {
-                return SimpleViewHolder(mHeaderViews[0])
-            } else if (viewType == TYPE_HEADER) {
-                return SimpleViewHolder(mHeaderViews[headerPosition++])
-            } else if (viewType == TYPE_FOOTER) {
-                return SimpleViewHolder(mFootView)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return when (viewType) {
+                TYPE_REFRESH_HEADER -> SimpleViewHolder(mHeaderViews[0])
+                TYPE_HEADER -> SimpleViewHolder(mHeaderViews[headerPosition++])
+                TYPE_FOOTER -> SimpleViewHolder(mFootView)
+                else -> adapter.onCreateViewHolder(parent, viewType)
             }
-            return adapter?.onCreateViewHolder(parent, viewType)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -275,7 +272,7 @@ class XRecyclerView : RecyclerView {
                 return
             }
             val adjPosition = position - headersCount
-            adapter?.let {
+            adapter.let {
                 if (adjPosition < it.itemCount) {
                     it.onBindViewHolder(holder, adjPosition)
                 }
@@ -283,11 +280,7 @@ class XRecyclerView : RecyclerView {
         }
 
         override fun getItemCount(): Int {
-            return if (adapter != null) {
-                headersCount + footersCount + adapter.itemCount
-            } else {
-                headersCount + footersCount
-            }
+            return headersCount + footersCount + adapter.itemCount
         }
 
         override fun getItemViewType(position: Int): Int {
@@ -301,7 +294,7 @@ class XRecyclerView : RecyclerView {
                 return TYPE_FOOTER
             }
             val adjPosition = position - headersCount
-            adapter?.let {
+            adapter.let {
                 if (adjPosition < it.itemCount) {
                     return it.getItemViewType(adjPosition)
                 }
@@ -310,7 +303,7 @@ class XRecyclerView : RecyclerView {
         }
 
         override fun getItemId(position: Int): Long {
-            if (adapter != null && position >= headersCount) {
+            if (position >= headersCount) {
                 val adjPosition = position - headersCount
                 val adapterCount = adapter.itemCount
                 if (adjPosition < adapterCount) {
@@ -321,11 +314,11 @@ class XRecyclerView : RecyclerView {
         }
 
         override fun unregisterAdapterDataObserver(observer: RecyclerView.AdapterDataObserver) {
-            adapter?.unregisterAdapterDataObserver(observer)
+            adapter.unregisterAdapterDataObserver(observer)
         }
 
         override fun registerAdapterDataObserver(observer: RecyclerView.AdapterDataObserver) {
-            adapter?.registerAdapterDataObserver(observer)
+            adapter.registerAdapterDataObserver(observer)
         }
 
         private inner class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

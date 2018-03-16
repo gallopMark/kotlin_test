@@ -7,10 +7,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.haoyuinfo.library.utils.PreferenceUtils
+import android.widget.FrameLayout
+import android.widget.TextView
+import android.widget.Toast
+import com.haoyuinfo.library.R
+import com.haoyuinfo.library.dialog.MaterialDialog
+import com.haoyuinfo.library.dialog.PromptDialog
+import com.haoyuinfo.library.widget.CompatToast
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment : Fragment() {
     lateinit var context: Activity
+    private val rxDisposables = CompositeDisposable()
+    private var promptDialog: PromptDialog? = null
+    private val mToast: CompatToast? = null
+    private var comPatDialog: MaterialDialog? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -39,39 +51,50 @@ abstract class BaseFragment : Fragment() {
 
     open fun initData() {}
 
-    fun getAvatar(): String {
-        return PreferenceUtils.getAvatar(context)
+    fun toast(text: CharSequence) {
+        val v = LayoutInflater.from(context).inflate(R.layout.layout_compat_toast, FrameLayout(context))
+        val textView = v.findViewById<TextView>(R.id.tv_text)
+        textView.text = text
+        fromToast().apply { view = v }.show()
     }
 
-    fun getUserId(): String {
-        return PreferenceUtils.getUserId(context)
+    private fun fromToast(): CompatToast {
+        return mToast
+                ?: CompatToast(context, R.style.CompatToast).apply { duration = Toast.LENGTH_LONG }
     }
 
-    fun getRealName(): String {
-        return PreferenceUtils.getRealName(context)
+    open fun showDialog() {
+        hideDialog()
+        promptDialog = PromptDialog(context).apply { show() }
     }
 
-    fun getDeptName(): String {
-        return PreferenceUtils.getDeptName(context)
+    open fun hideDialog() {
+        promptDialog?.dismiss()
+        promptDialog = null
     }
 
-    fun getRole(): String {
-        return PreferenceUtils.getRole(context)
+    open fun showCompatDialog(title: CharSequence, message: CharSequence) {
+        comPatDialog?.dismiss()
+        comPatDialog = MaterialDialog(context).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("确定", null)
+            show()
+        }
     }
 
-    open fun getAccount(): String {
-        return PreferenceUtils.getAccount(context)
+    open fun addDisposable(d: Disposable?) {
+        d?.let { rxDisposables.add(it) }
     }
 
-    fun getPassWord(): String {
-        return PreferenceUtils.getPassWord(context)
+    override fun onPause() {
+        super.onPause()
+        hideDialog()
     }
 
-    fun isLogin(): Boolean {
-        return PreferenceUtils.isLogin(context)
-    }
-
-    fun isRemember(): Boolean {
-        return PreferenceUtils.isRemember(context)
+    override fun onDestroyView() {
+        mToast?.cancel()
+        rxDisposables.dispose()
+        super.onDestroyView()
     }
 }

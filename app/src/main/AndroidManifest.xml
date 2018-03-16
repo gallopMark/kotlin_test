@@ -31,9 +31,8 @@
     <application
         android:name=".base.CompatApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_app"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/lego_ico"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--腾讯bugly key-->
@@ -69,19 +68,17 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CaptureActivity" />
         <activity android:name=".activity.MenuActivity" />
-        <activity android:name=".activity.AmapActivity" />
         <activity
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name="com.haoyuinfo.mediapicker.MediaGridActivity" />
         <activity android:name="com.haoyuinfo.mediapicker.PreViewActivity" />
         <activity android:name="com.haoyuinfo.filepicker.FilePickerActivity" />
+        <activity android:name=".activity.CourseLearnActivity"/>
         <activity
             android:name="tv.danmaku.ijk.media.ui.VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
-
-        <service android:name="com.amap.api.location.APSService" />
     </application>
 
 </manifest>

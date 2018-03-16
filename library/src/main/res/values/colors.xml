@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#11B1D5</color> <!-- toolbar 控件的 background -->
-    <color name="colorPrimaryDark">#11A1D5</color>  <!--（状态栏底色）-->
+    <color name="colorPrimary">#62B542</color> <!-- toolbar 控件的 background -->
+    <color name="colorPrimaryDark">#62A542</color>  <!--（状态栏底色）-->
     <color name="colorAccent">#FF4081
     </color> <!--各控制元件(如：check box、switch 或是 radoi) 被勾选 (checked) 或是选定 (selected) 的颜色。-->
 
-    <color name="menuStartColor">#012027</color>
-    <color name="menuCenterColor">#01637a</color>
-    <color name="menuEndColor">@color/colorPrimary</color>
+    <color name="menuStartColor">#111c0e</color>
+    <color name="menuCenterColor">#2d581d</color>
+    <color name="menuEndColor">#62B542</color>
     <color name="itemDivider">#ffedeeef</color>
 
-    <color name="startColor">@color/colorPrimary</color>
-    <color name="centerColor">#1095E4</color>
-    <color name="endColor">#1980E3</color>
+    <color name="startColor">#6BC43B</color>
+    <color name="centerColor">#61BB35</color>
+    <color name="endColor">#62B542</color>
+
     <color name="colorBackground">#FFFFFF</color>
     <color name="black">#000000</color><!--黑色 -->
     <color name="white">#FFFFFF</color><!--白色-->
@@ -159,4 +160,6 @@
     <color name="transparent">#00000000</color>
     <color name="blacktransparent">#b3000000</color>
     <color name="translucent">#80000000</color>
+    <color name="layoutLoading">#cc393939</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

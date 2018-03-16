@@ -5,13 +5,29 @@ import java.io.Serializable
 
 open class BaseResult<T> : Serializable {
     @SerializedName("responseCode")
-    var responseCode: String? = null
+    private var responseCode: String? = null
     @SerializedName("responseData")
-    var responseData: T? = null
+    private var responseData: T? = null
     @SerializedName("responseMsg")
-    var responseMsg: String? = null
+    private var responseMsg: String? = null
     @SerializedName("success")
-    val success: Boolean? = false
+    private val success = false
+
+    fun getResponseCode(): String? {
+        return responseCode
+    }
+
+    fun getResponseData(): T? {
+        return responseData
+    }
+
+    fun getResponseMsg(): String? {
+        return responseMsg
+    }
+
+    fun isSuccess(): Boolean {
+        return success
+    }
 
     override fun toString(): String {
         return ("responseCode:" + this.responseCode + "\tsuccess:"

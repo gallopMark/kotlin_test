@@ -1,6 +1,7 @@
 package com.haoyuinfo.app.utils
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit
 
 
 class OkHttpUtils private constructor() {
+    private val handler = Handler()
     private val mOkHttpClient: OkHttpClient = OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)//设置读取超时时间
             .writeTimeout(20, TimeUnit.SECONDS)//设置写的超时时间
@@ -218,15 +220,16 @@ class OkHttpUtils private constructor() {
             }
             Log.e("json", json)
             json
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ json ->
-            callback?.let {
-                if (it.mType == String::class.java) it.onResponse(json as T)
-                else it.onResponse(mGson.fromJson(json, it.mType))
-            }
-        }, {
-            it.printStackTrace()
-            callback?.onError(request, it)
-        })
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ json ->
+                    callback?.let {
+                        if (it.mType == String::class.java) it.onResponse(json as T)
+                        else it.onResponse(mGson.fromJson(json, it.mType))
+                    }
+                }, {
+                    it.printStackTrace()
+                    callback?.onError(request, it)
+                })
     }
 
     abstract class ResultCallback<in T> {

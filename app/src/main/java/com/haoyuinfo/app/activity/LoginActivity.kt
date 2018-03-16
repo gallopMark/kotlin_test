@@ -13,6 +13,8 @@ import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.app.utils.PreferenceUtils
 import com.haoyuinfo.library.base.BaseActivity
+import com.haoyuinfo.library.dialog.LoadingDialog
+import com.haoyuinfo.library.utils.Common
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -30,9 +32,12 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun setUp(savedInstanceState: Bundle?) {
-        etAccount.setText(getAccount())
-        if (isRemember()) {
-            etPassword.setText(getPassWord())
+        val account = PreferenceUtils.getAccount(this)
+        etAccount.setText(account)
+        etAccount.setSelection(account.length)//将光标移至文字末尾
+        cbRemember.isChecked = PreferenceUtils.isRemember(this)
+        if (PreferenceUtils.isRemember(this)) {
+            etPassword.setText(PreferenceUtils.getPassWord(this))
         }
         cbRemember.setOnCheckedChangeListener { _, isChecked -> remember = isChecked }
         etAccount.setOnTouchListener { _, _ ->
@@ -44,9 +49,18 @@ class LoginActivity : BaseActivity() {
             false
         }
         bt_login.setOnClickListener {
-            val account = etAccount.text.toString()
+            Common.hideSoftInput(this)
+            val textAccount = etAccount.text.toString()
+            if (textAccount.trim().isEmpty()) {
+                toast("请输入账号")
+                return@setOnClickListener
+            }
             val password = etPassword.text.toString()
-            login(account, password)
+            if (password.trim().isEmpty()) {
+                toast("请输入密码")
+                return@setOnClickListener
+            }
+            login(textAccount, password)
             bt_login.isEnabled = false
         }
         controlKeyboardLayout()
@@ -82,7 +96,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun login(account: String, password: String) {
-        Flowable.fromCallable {
+        val dialog = LoadingDialog(this).setLoadingText("正在登录…")
+        dialog.setCancelable(true)
+        dialog.show()
+        val disposable = Flowable.fromCallable {
             val map = HashMap<String, String>().apply {
                 put("username", account)
                 put("password", password)
@@ -96,6 +113,7 @@ class LoginActivity : BaseActivity() {
             }
             st
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+            dialog.dismiss()
             if (!TextUtils.isEmpty(it)) {
                 login(it)
             } else {
@@ -103,9 +121,11 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(this, "登录失败", Toast.LENGTH_LONG).show()
             }
         }, {
+            dialog.dismiss()
             bt_login.isEnabled = true
             Toast.makeText(this, "登录失败", Toast.LENGTH_LONG).show()
         })
+        dialog.setOnCancelListener { disposable.dispose() }
     }
 
     private fun login(st: String?) {
@@ -116,14 +136,14 @@ class LoginActivity : BaseActivity() {
             }
 
             override fun onResponse(response: BaseResult<MobileUser>?) {
-                response?.responseData?.let {
-                    it.role?.let {
+                response?.getResponseData()?.let { user ->
+                    user.role?.let {
                         if (it.contains("student")) {
+                            saveUser(user)
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             finish()
                         }
                     }
-                    saveUser(it)
                 }
             }
         })
@@ -142,7 +162,7 @@ class LoginActivity : BaseActivity() {
         } else {
             ""
         }
-        map["isLogin"] = remember
+        map["isLogin"] = true
         map["remember"] = remember
         PreferenceUtils.saveUser(this, map)
     }

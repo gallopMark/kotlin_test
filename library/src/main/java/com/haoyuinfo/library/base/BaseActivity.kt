@@ -3,10 +3,16 @@ package com.haoyuinfo.library.base
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.Toolbar
+import android.view.LayoutInflater
+import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.haoyuinfo.library.R
-import com.haoyuinfo.library.utils.PreferenceUtils
+import com.haoyuinfo.library.dialog.MaterialDialog
+import com.haoyuinfo.library.dialog.PromptDialog
+import com.haoyuinfo.library.widget.CompatToast
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -14,6 +20,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     var actionBar: Toolbar? = null
     private val rxDisposables = CompositeDisposable()
+    private var promptDialog: PromptDialog? = null
+    private var comPatDialog: MaterialDialog? = null
+    private var mToast: CompatToast? = null
+
+    init {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT //强制竖屏
@@ -22,6 +36,7 @@ abstract class BaseActivity : AppCompatActivity() {
         setToolbar()
         setUp(savedInstanceState)
         initData()
+        setListener()
     }
 
     private fun setToolbar() {
@@ -43,48 +58,50 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun setUp(savedInstanceState: Bundle?)
 
-    open fun initData() {
+    open fun initData() {}
 
-    }
+    open fun setListener(){}
 
     open fun addDisposable(d: Disposable?) {
         d?.let { rxDisposables.add(it) }
     }
 
-    fun getAvatar(): String {
-        return PreferenceUtils.getAvatar(this)
+    open fun showDialog() {
+        hideDialog()
+        window?.let { promptDialog = PromptDialog(this).apply { show() } }
     }
 
-    fun getUserId(): String {
-        return PreferenceUtils.getUserId(this)
+    open fun hideDialog() {
+        promptDialog?.dismiss()
+        promptDialog = null
     }
 
-    fun getRealName(): String {
-        return PreferenceUtils.getRealName(this)
+    open fun showCompatDialog(title: CharSequence, message: CharSequence) {
+        comPatDialog?.dismiss()
+        comPatDialog = MaterialDialog(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("确定", null)
+            show()
+        }
     }
 
-    fun getDeptName(): String {
-        return PreferenceUtils.getDeptName(this)
+    fun toast(text: CharSequence) {
+        val v = LayoutInflater.from(this).inflate(R.layout.layout_compat_toast, FrameLayout(this))
+        val textView = v.findViewById<TextView>(R.id.tv_text)
+        textView.text = text
+        fromToast().apply { view = v }.show()
     }
 
-    fun getRole(): String {
-        return PreferenceUtils.getRole(this)
+    private fun fromToast(): CompatToast {
+        return mToast
+                ?: CompatToast(this, R.style.CompatToast).apply { duration = Toast.LENGTH_LONG }
     }
 
-    open fun getAccount(): String {
-        return PreferenceUtils.getAccount(this)
-    }
-
-    fun getPassWord(): String {
-        return PreferenceUtils.getPassWord(this)
-    }
-
-    fun isLogin(): Boolean {
-        return PreferenceUtils.isLogin(this)
-    }
-
-    fun isRemember(): Boolean {
-        return PreferenceUtils.isRemember(this)
+    override fun onPause() {
+        super.onPause()
+        hideDialog()
+        mToast?.cancel()
     }
 
     override fun onDestroy() {

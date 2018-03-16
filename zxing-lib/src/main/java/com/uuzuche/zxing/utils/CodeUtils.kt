@@ -32,7 +32,7 @@ object CodeUtils {
         /* 首先判断图片的大小,若图片过大,则执行图片的裁剪操作,防止OOM*/
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true // 先获取原大小
-        var mBitmap = BitmapFactory.decodeFile(path, options)
+        val mBitmap: Bitmap
         options.inJustDecodeBounds = false // 获取新的大小
         var sampleSize = (options.outHeight / 400.toFloat()).toInt()
         if (sampleSize <= 0)

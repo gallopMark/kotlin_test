@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
 import com.haoyuinfo.app.R
+import com.haoyuinfo.app.utils.PreferenceUtils
 import com.haoyuinfo.library.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
@@ -17,7 +18,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun enter() {
-        if (isLogin()) {
+        if (PreferenceUtils.isLogin(this)) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))

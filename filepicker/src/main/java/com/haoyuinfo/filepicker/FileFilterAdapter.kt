@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.haoyuinfo.app.adapterhelper.BaseArrayRecyclerAdapter
+import com.haoyuinfo.library.utils.FileTypeUtils
 import java.io.File
 
 

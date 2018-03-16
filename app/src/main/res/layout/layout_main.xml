@@ -9,13 +9,24 @@
         <TextView style="@style/ToolbarTitleTextView" />
     </android.support.v7.widget.Toolbar>
 
-    <include
-        android:id="@+id/llEmpty"
-        layout="@layout/layout_empty_train"
-        android:visibility="gone" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/llMain"
-        layout="@layout/layout_main_train"
-        android:visibility="gone" />
+        <com.haoyuinfo.library.widget.CurrencyLoadView
+            android:id="@+id/loadView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <include
+            android:id="@+id/llMain"
+            layout="@layout/layout_main_train"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/llEmpty"
+            layout="@layout/layout_empty_train"
+            android:visibility="gone" />
+    </FrameLayout>
 </LinearLayout>

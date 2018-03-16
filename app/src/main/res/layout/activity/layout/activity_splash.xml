@@ -15,5 +15,5 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/margin_size_40"
         android:scaleType="centerCrop"
-        android:src="@drawable/lego_logo" />
+        android:src="@drawable/ic_logo" />
 </FrameLayout>

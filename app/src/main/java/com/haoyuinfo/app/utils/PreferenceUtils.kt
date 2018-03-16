@@ -11,12 +11,12 @@ object PreferenceUtils {
 
     fun saveUser(context: Context, map: Map<String, Any>) {
         val editor = getPreferences(context).edit()
-        editor?.apply {
+        editor?.let {
             for ((key, value) in map) {
                 when (value) {
-                    is Boolean -> putBoolean(key, value)
-                    is String -> putString(key, value)
-                    is Int -> putInt(key, value)
+                    is Boolean -> it.putBoolean(key, value)
+                    is String -> it.putString(key, value)
+                    is Int -> it.putInt(key, value)
                 }
             }
         }

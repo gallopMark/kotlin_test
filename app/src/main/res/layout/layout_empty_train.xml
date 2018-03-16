@@ -22,7 +22,7 @@
             android:drawablePadding="@dimen/margin_size_12"
             android:drawableTop="@drawable/empty_train"
             android:gravity="center"
-            android:text="暂无参与培训信息"
+            android:text="@string/emptyTrainInfo"
             android:textColor="@color/gainsboro"
             android:textSize="@dimen/font_size_16" />
     </LinearLayout>
@@ -44,8 +44,8 @@
             android:id="@+id/llCmtsLearn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/white"
+            android:orientation="horizontal"
             android:padding="@dimen/margin_size_12">
 
             <TextView
@@ -56,7 +56,7 @@
                 android:drawableLeft="@drawable/ic_cmts_learn"
                 android:drawablePadding="@dimen/margin_size_10"
                 android:gravity="center|left"
-                android:text="进入社区，交流教学经验"
+                android:text="@string/gotoCmtsLearn"
                 android:textColor="@color/blow_gray"
                 android:textSize="@dimen/font_size_18" />
 

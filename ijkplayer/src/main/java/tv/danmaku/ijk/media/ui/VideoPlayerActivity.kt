@@ -87,7 +87,6 @@ class VideoPlayerActivity : BaseActivity() {
         mAudioManager?.let { maxVolume = it.getStreamMaxVolume(AudioManager.STREAM_MUSIC) }
         volumeControlStream = AudioManager.STREAM_MUSIC
         setVideoController()
-        setListener()
         val filter = IntentFilter()
         filter.addAction(Intent.ACTION_BATTERY_CHANGED)
         if (isHttps) {   //如果是网络视频，则监听网络变化
@@ -259,7 +258,7 @@ class VideoPlayerActivity : BaseActivity() {
         handler.sendEmptyMessageDelayed(CODE_ENDGESTURE, 5000)
     }
 
-    private fun setListener() {
+    override fun setListener() {
         mBackView.setOnClickListener { finish() }
         ivLock.setOnClickListener {
             if (isLocked) {

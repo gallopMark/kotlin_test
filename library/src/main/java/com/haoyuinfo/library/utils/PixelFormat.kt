@@ -7,14 +7,12 @@ import android.util.TypedValue
 object PixelFormat {
     /* dp转px*/
     fun dp2px(context: Context, dpVal: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, context.resources.displayMetrics).toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.resources.displayMetrics).toInt()
     }
 
     /* sp转px*/
     fun sp2px(context: Context, spVal: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                spVal, context.resources.displayMetrics).toInt()
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spVal, context.resources.displayMetrics).toInt()
     }
 
     /* px转dp*/

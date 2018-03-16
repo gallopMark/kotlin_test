@@ -17,7 +17,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Toast
 import com.haoyuinfo.app.adapterhelper.BaseRecyclerAdapter
 import com.haoyuinfo.library.base.BaseActivity
 import com.haoyuinfo.library.dialog.MaterialDialog
@@ -122,7 +121,6 @@ class MediaGridActivity : BaseActivity() {
         adapter = MediaGridAdapter(this, mDatas, type, isMutily, limit)
         recyclerView.adapter = adapter
         loadMedia()
-        setListener()
     }
 
     private fun loadMedia() {
@@ -145,7 +143,7 @@ class MediaGridActivity : BaseActivity() {
         }
     }
 
-    private fun setListener() {
+    override fun setListener() {
         adapter.setOnItemClickListener(object : MediaGridAdapter.OnItemClickListener {
             override fun onCamera() {
                 if (type == MediaItem.TYPE_PHOTO) {
@@ -156,7 +154,7 @@ class MediaGridActivity : BaseActivity() {
             }
 
             override fun onOverSelected(limit: Int) {
-                Toast.makeText(this@MediaGridActivity, "您最多只能选择${limit}张图片", Toast.LENGTH_LONG).show()
+                toast("您最多只能选择${limit}张图片")
             }
 
             override fun onSelected(mDatas: ArrayList<MediaItem>) {

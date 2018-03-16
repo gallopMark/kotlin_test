@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_click_selector"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_size_14">
+
+    <TextView
+        android:id="@+id/mTrainTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_16" />
+
+    <ImageView
+        android:id="@+id/mSelectIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin_size_18"
+        app:srcCompat="@drawable/ic_selected_24dp" />
+</LinearLayout>
