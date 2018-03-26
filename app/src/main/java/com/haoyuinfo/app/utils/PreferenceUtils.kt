@@ -2,6 +2,7 @@ package com.haoyuinfo.app.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.haoyuinfo.library.utils.Base64Utils
 
 object PreferenceUtils {
     private const val name = "Prefs_user"
@@ -15,7 +16,7 @@ object PreferenceUtils {
             for ((key, value) in map) {
                 when (value) {
                     is Boolean -> it.putBoolean(key, value)
-                    is String -> it.putString(key, value)
+                    is String -> it.putString(key, Base64Utils.encode(value))
                     is Int -> it.putInt(key, value)
                 }
             }
@@ -24,31 +25,38 @@ object PreferenceUtils {
     }
 
     fun getUserId(context: Context): String {
-        return getPreferences(context).getString("id", "")
+        val userId = getPreferences(context).getString("id", "")
+        return Base64Utils.decode(userId)
     }
 
     fun getAvatar(context: Context): String {
-        return getPreferences(context).getString("avatar", "")
+        val avatar = getPreferences(context).getString("avatar", "")
+        return Base64Utils.decode(avatar)
     }
 
     fun getRealName(context: Context): String {
-        return getPreferences(context).getString("realName", "")
+        val realName = getPreferences(context).getString("realName", "")
+        return Base64Utils.encode(realName)
     }
 
     fun getDeptName(context: Context): String {
-        return getPreferences(context).getString("deptName", "")
+        val deptName = getPreferences(context).getString("deptName", "")
+        return Base64Utils.encode(deptName)
     }
 
     fun getRole(context: Context): String {
-        return getPreferences(context).getString("role", "")
+        val role = getPreferences(context).getString("role", "")
+        return Base64Utils.encode(role)
     }
 
     fun getAccount(context: Context): String {
-        return getPreferences(context).getString("account", "")
+        val account = getPreferences(context).getString("account", "")
+        return Base64Utils.encode(account)
     }
 
     fun getPassWord(context: Context): String {
-        return getPreferences(context).getString("password", "")
+        val password = getPreferences(context).getString("password", "")
+        return Base64Utils.decode(password)
     }
 
     fun isLogin(context: Context): Boolean {

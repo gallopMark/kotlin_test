@@ -9,6 +9,7 @@ import com.uuzuche.zxing.utils.CodeUtils
 class MenuActivity : BaseActivity() {
     companion object {
         const val TYPE_CAPTURE_RESULT = "capture_result"
+        const val TYPE_USERINFO = "userInfo"
         const val TYPE_CMTS = "cmts"
         const val TYPE_PEER = "peer"
         const val TYPE_MESSAGE = "message"
@@ -26,6 +27,10 @@ class MenuActivity : BaseActivity() {
         val transacation = supportFragmentManager.beginTransaction()
         var title = ""
         when (type) {
+            TYPE_USERINFO -> {
+                title = resources.getString(R.string.user_info)
+                transacation.replace(R.id.content, UserInfoFragment())
+            }
             TYPE_CAPTURE_RESULT -> {
                 title = resources.getString(R.string.scan_result)
                 transacation.replace(R.id.content, CaptureResultFragment().apply {

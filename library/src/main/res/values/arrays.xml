@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="circular_loading_color_sequence">
+        <item>@color/colorPrimary</item>
+        <item>@color/colorPrimary</item>
+        <item>@color/colorPrimary</item>
+        <item>@color/colorPrimary</item>
+    </array>
+    <array name="circular_white_colors">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </array>
+    <array name="CircleProgressBar_color_sequence">
+        <item>@color/darkred</item>
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/blue</item>
+    </array>
+</resources>

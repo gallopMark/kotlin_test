@@ -47,7 +47,7 @@ class AppManager private constructor() {
     /**
      * 结束所有Activity
      */
-    private fun finishAllActivity() {
+    fun finishAllActivity() {
         for (activity in activityStack) {
             activity?.finish()
         }

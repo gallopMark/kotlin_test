@@ -1,6 +1,9 @@
 package com.haoyuinfo.app.activity
 
+import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.SearchView
 import android.text.TextUtils
@@ -8,6 +11,7 @@ import android.widget.Toast
 import com.haoyuinfo.app.R
 import com.haoyuinfo.library.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_search.*
+import java.lang.ref.WeakReference
 
 class SearchActivity : BaseActivity() {
     override fun setLayoutResID(): Int {
@@ -31,6 +35,13 @@ class SearchActivity : BaseActivity() {
             if (TextUtils.isEmpty(text)) {
                 Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private class MyHandler(activity: Activity) : Handler() {
+        private val weakReference = WeakReference<Activity>(activity)
+        override fun handleMessage(msg: Message?) {
+            if (weakReference.get() == null) return
         }
     }
 }

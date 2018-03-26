@@ -7,7 +7,10 @@ import android.content.IntentFilter
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.net.ConnectivityManager
-import android.os.*
+import android.os.BatteryManager
+import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.video_player_error.*
 import kotlinx.android.synthetic.main.video_progress_turn.*
 import tv.danmaku.ijk.media.R
 import tv.danmaku.ijk.media.player.IMediaPlayer
+import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,6 +38,7 @@ class VideoPlayerActivity : BaseActivity() {
     private var isOpenPlayer = false
     private var isPrepared = false
     private var isCompleted = false
+    private lateinit var handler: MHandler
 
     companion object {
         private const val STATE_IDLE = 1
@@ -87,9 +92,10 @@ class VideoPlayerActivity : BaseActivity() {
         mAudioManager?.let { maxVolume = it.getStreamMaxVolume(AudioManager.STREAM_MUSIC) }
         volumeControlStream = AudioManager.STREAM_MUSIC
         setVideoController()
+        handler = MHandler(this)
         val filter = IntentFilter()
         filter.addAction(Intent.ACTION_BATTERY_CHANGED)
-        if (isHttps) {   //如果是网络视频，则监听网络变化
+        if (isHttps) {//如果是网络视频，则监听网络变化
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         }
         registerReceiver(receiver, filter)
@@ -452,24 +458,29 @@ class VideoPlayerActivity : BaseActivity() {
         videoView.stopPlayback()
     }
 
-    private val handler = object : Handler(Looper.getMainLooper()) {
+    private class MHandler(activity: VideoPlayerActivity) : Handler() {
+        private val weakReference = WeakReference<VideoPlayerActivity>(activity)
         override fun handleMessage(msg: Message) {
-            when (msg.what) {
-                CODE_PROGRESS -> {
-                    val position = videoView.currentPosition
-                    seekBar.progress = position
-                    tv_current.text = generateTime(position.toLong())
-                    sendEmptyMessageDelayed(CODE_PROGRESS, 1000)
-                }
-                CODE_ATTRBUTE -> mAttrLayout.visibility = View.GONE
-                CODE_ENDGESTURE -> {
-                    ivLock.visibility = View.GONE
-                    mController.visibility = View.GONE
-                    removeMessages(CODE_SYSTEM_TIME)
-                }
-                CODE_SYSTEM_TIME -> {
-                    tvCurrentTime.text = getSystemTime()
-                    sendEmptyMessageDelayed(CODE_SYSTEM_TIME, 60 * 1000)
+            weakReference.get()?.let {
+                when (msg.what) {
+                    CODE_PROGRESS -> {
+                        val position = it.videoView.currentPosition
+                        it.seekBar.progress = position
+                        it.tv_current.text = it.generateTime(position.toLong())
+                        sendEmptyMessageDelayed(CODE_PROGRESS, 1000)
+                    }
+                    CODE_ATTRBUTE -> it.mAttrLayout.visibility = View.GONE
+                    CODE_ENDGESTURE -> {
+                        it.ivLock.visibility = View.GONE
+                        it.mController.visibility = View.GONE
+                        removeMessages(CODE_SYSTEM_TIME)
+                    }
+                    CODE_SYSTEM_TIME -> {
+                        it.tvCurrentTime.text = it.getSystemTime()
+                        sendEmptyMessageDelayed(CODE_SYSTEM_TIME, 60 * 1000)
+                    }
+                    else -> {
+                    }
                 }
             }
         }

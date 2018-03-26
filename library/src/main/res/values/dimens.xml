@@ -4,6 +4,7 @@
     <dimen name="app_title_margin">14dp</dimen>
     <dimen name="slidingmenu_offset">100dp</dimen>
     <dimen name="shadow_width">20dp</dimen>
+    <dimen name="circular_default_border_width">4dp</dimen>
     <dimen name="margin_size_1">1dp</dimen>
     <dimen name="margin_size_2">2dp</dimen>
     <dimen name="margin_size_3">3dp</dimen>
@@ -26,6 +27,9 @@
     <dimen name="margin_size_20">20dp</dimen>
     <dimen name="margin_size_22">22dp</dimen>
     <dimen name="margin_size_24">24dp</dimen>
+    <dimen name="margin_size_25">25dp</dimen>
+    <dimen name="margin_size_26">26dp</dimen>
+    <dimen name="margin_size_28">28dp</dimen>
     <dimen name="margin_size_30">30dp</dimen>
     <dimen name="margin_size_35">35dp</dimen>
     <dimen name="margin_size_40">40dp</dimen>

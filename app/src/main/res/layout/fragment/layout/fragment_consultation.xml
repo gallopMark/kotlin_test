@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/consulting"
-        android:textSize="@dimen/font_size_18" />
+        android:layout_marginLeft="@dimen/margin_size_16"
+        android:layout_marginRight="@dimen/margin_size_16"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:drawablePadding="@dimen/margin_size_12"
+            android:drawableTop="@drawable/ic_education_consult"
+            android:gravity="center_horizontal"
+            android:text="@string/hotline"
+            android:textSize="@dimen/font_size_25" />
+
+        <TextView
+            android:id="@+id/mPhoneTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/hotline_phone"
+            android:padding="@dimen/margin_size_4"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_size_30" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text="@string/consultation"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_size_16" />
+    </LinearLayout>
 </RelativeLayout>

@@ -8,10 +8,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.haoyuinfo.library.R
-import com.haoyuinfo.library.utils.PixelFormat
 
 class CurrencyLoadView : FrameLayout {
-    private var mContext: Context
     private lateinit var loadingView: View
     private lateinit var errorView: View
     private lateinit var emptyView: View
@@ -31,34 +29,32 @@ class CurrencyLoadView : FrameLayout {
     }
 
     constructor(context: Context) : super(context) {
-        this.mContext = context
+        init(context)
     }
 
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        this.mContext = context
+        init(context)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        this.mContext = context
+        init(context)
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        loadingView = inflate(mContext, R.layout.layout_loading, null)
-        errorView = inflate(mContext, R.layout.layout_error, null)
-        emptyView = inflate(mContext, R.layout.layout_empty, null)
-        val size = PixelFormat.dp2px(mContext, 120f)
-        val compatParams = FrameLayout.LayoutParams(size, size)
-        addView(loadingView, compatParams)
+    private fun init(context: Context) {
+        loadingView = inflate(context, R.layout.layout_loading, null)
+        errorView = inflate(context, R.layout.layout_error, null)
+        emptyView = inflate(context, R.layout.layout_empty, null)
         val params = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
         params.gravity = Gravity.CENTER
+        addView(loadingView, params)
         addView(errorView, params)
         addView(emptyView, params)
         setState(STATE_IDEA)
-        initView()
+        findViews()
     }
 
-    private fun initView() {
+    private fun findViews() {
         cpvLoading = findViewById(R.id.cpvLoading)
         mLoadingTv = findViewById(R.id.mLoadingTv)
         mErrorTv = findViewById(R.id.mErrorTv)

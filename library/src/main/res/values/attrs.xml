@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularProgressView">
+        <attr name="border_Width" format="dimension" />
+        <attr name="colorSequence" format="reference" />
+        <attr name="sweepAnimationDurationMillis" format="integer" />
+        <attr name="angleAnimationDurationMillis" format="integer" />
+        <attr name="minSweepAngle" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="arc_color" format="color" />
+        <attr name="progress_color" format="color" />
+        <attr name="arc_width" format="dimension" />
+        <attr name="progress_width" format="dimension" />
+        <attr name="start_angle" format="integer" />
+        <attr name="sweep_angle" format="integer" />
+        <attr name="maxValue" format="integer" />
+        <attr name="color_array" format="reference" />
+        <attr name="currentValue" format="integer" />
+        <attr name="aniSpeed" format="integer" />
+    </declare-styleable>
+
+</resources>

@@ -32,6 +32,9 @@ class CommunityFragment : BaseFragment() {
                 R.id.rbMove -> println("cmts moves...")
             }
         }
+        val urls = arrayOf("http://gyxz.hwm6b6.cn/vp/yx_ljun1/SuperStarBTS.apk",
+                "http://dl.52ipk.com/APK/swzb//13/28/swzb.apk",
+                "https://apk.apk.hz155.com/down/zscc.apk")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

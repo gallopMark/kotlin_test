@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_click_selector"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:id="@+id/ll_rowBG"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mEditTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/darkgrey"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:text="编辑"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/mDeleteTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_rowFG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_size_12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mTypeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_message_sys"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/margin_size_4"
+                android:paddingLeft="@dimen/margin_size_10"
+                android:paddingRight="@dimen/margin_size_10"
+                android:paddingTop="@dimen/margin_size_4"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_size_16" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_size_15"
+                    android:layout_height="@dimen/margin_size_15"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin_size_4"
+                    android:layout_marginRight="@dimen/margin_size_4"
+                    android:contentDescription="@string/createtime"
+                    android:src="@drawable/ic_app_createtime" />
+
+                <TextView
+                    android:id="@+id/mTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/font_size_16" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mContentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_12"
+            android:ellipsize="end"
+            android:gravity="start|center"
+            android:lineSpacingExtra="@dimen/margin_size_3"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/mReplyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/margin_size_12"
+            android:layout_marginRight="@dimen/margin_size_12"
+            android:layout_marginTop="@dimen/margin_size_10"
+            android:drawableLeft="@drawable/ic_reply_default"
+            android:drawablePadding="@dimen/margin_size_4"
+            android:drawableStart="@drawable/ic_reply_default"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_size_16"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_size_6"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin_size_12"
+        android:background="@color/itemDivider" />
+
+</RelativeLayout>

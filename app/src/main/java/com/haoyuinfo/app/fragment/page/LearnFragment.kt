@@ -4,7 +4,7 @@ import com.haoyuinfo.app.R
 import com.haoyuinfo.app.entity.CourseLearnResult
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
-import com.haoyuinfo.library.base.BaseLazyFragment
+import com.haoyuinfo.library.base.BasePageFragment
 import com.haoyuinfo.library.widget.CurrencyLoadView
 import kotlinx.android.synthetic.main.fragment_course_learn.*
 import okhttp3.Request
@@ -14,7 +14,7 @@ import okhttp3.Request
  * 描述:课程学习
  * 作者:xiaoma
  */
-class LearnFragment : BaseLazyFragment() {
+class LearnFragment : BasePageFragment() {
     private var training = false
     private var courseId: String? = null
 

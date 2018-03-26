@@ -1,8 +1,12 @@
 package com.haoyuinfo.app.fragment.menu
 
+import android.content.Intent
 import com.haoyuinfo.app.R
+import com.haoyuinfo.app.activity.LoginActivity
+import com.haoyuinfo.app.utils.PreferenceUtils
+import com.haoyuinfo.library.base.AppManager
 import com.haoyuinfo.library.base.BaseFragment
-import tv.danmaku.ijk.media.ui.VideoPlayerActivity
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * 创建日期：2018/3/5.
@@ -15,6 +19,10 @@ class SettingsFragment : BaseFragment() {
     }
 
     override fun setUp() {
-        VideoPlayerActivity.openVideo(context, "", true)
+        mLoginOutBt.setOnClickListener {
+            PreferenceUtils.saveUser(context, HashMap<String, Any>().apply { put("isLogin", true) })
+            AppManager.get().finishAllActivity()
+            startActivity(Intent(context, LoginActivity::class.java))
+        }
     }
 }

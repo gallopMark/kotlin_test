@@ -93,15 +93,18 @@ class XRecyclerView : RecyclerView {
     fun setLoadingMoreEnabled(enabled: Boolean) {//设置是否可以上拉
         loadingMoreEnabled = enabled
         if (!enabled) {
-            mFooter.visibility = View.GONE
+            mFooter.setState(XRecyclerViewFooter.STATE_COMPLETE)
         }
     }
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-        mAdapter = adapter
-        mWrapAdapter = WrapAdapter(mHeaderViews, mFooter, adapter)
-        super.setAdapter(mWrapAdapter)
-        mAdapter?.registerAdapterDataObserver(mDataObserver)
+    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
+        adapter?.let {
+            mAdapter = it
+            mWrapAdapter = WrapAdapter(mHeaderViews, mFooter, it)
+            super.setAdapter(mWrapAdapter)
+            it.registerAdapterDataObserver(mDataObserver)
+            mDataObserver.onChanged()
+        }
     }
 
     /**
@@ -220,9 +223,6 @@ class XRecyclerView : RecyclerView {
         val headersCount: Int
             get() = mHeaderViews.size
 
-        val footersCount: Int
-            get() = 1
-
         override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
             super.onAttachedToRecyclerView(recyclerView)
             val manager = recyclerView.layoutManager
@@ -251,7 +251,9 @@ class XRecyclerView : RecyclerView {
         }
 
         fun isFooter(position: Int): Boolean {
-            return position < itemCount && position >= itemCount - 1
+            if (loadingMoreEnabled)
+                return position < itemCount && position >= itemCount - 1
+            return false
         }
 
         fun isRefreshHeader(position: Int): Boolean {
@@ -280,7 +282,10 @@ class XRecyclerView : RecyclerView {
         }
 
         override fun getItemCount(): Int {
-            return headersCount + footersCount + adapter.itemCount
+            if (loadingMoreEnabled) {
+                return headersCount + adapter.itemCount + 1
+            }
+            return headersCount + adapter.itemCount
         }
 
         override fun getItemViewType(position: Int): Int {

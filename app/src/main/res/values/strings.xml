@@ -9,6 +9,7 @@
     <string name="announcement">通知</string>
     <string name="send">发送</string>
 
+    <string name="user_info">个人信息</string>
     <string name="scan_result">扫描结果</string>
     <string name="learn">学习</string>
     <string name="teachingResearch">教研</string>
@@ -19,6 +20,16 @@
     <string name="consulting">教务咨询</string>
     <string name="settings">设置</string>
     <string name="qr_code">二维码/条码</string>
+
+    <string name="clear_caching">清除缓存</string>
+    <string name="clear_off_download_content">清除离线下载内容</string>
+    <string name="freeback">意见反馈</string>
+    <string name="detection_version">检测版本</string>
+    <string name="about_us">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <string name="hotline">服务热线</string>
+    <string name="hotline_phone">020–34113597</string>
+    <string name="consultation">（点击号码拨号咨询）</string>
 
     <string name="emptyTrainInfo">暂无参与培训信息</string>
     <string name="gotoCmtsLearn">进入社区，交流教学经验</string>
@@ -45,4 +56,5 @@
     <string name="relatedWS">与我相关</string>
     <string name="all">全部</string>
 
+    <string name="createtime">创建时间</string>
 </resources>

@@ -27,7 +27,7 @@ import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.library.base.BaseActivity
 import com.haoyuinfo.library.utils.ScreenUtils
-import com.haoyuinfo.library.utils.TimeUtil
+import com.haoyuinfo.library.utils.TimeUtils
 import com.haoyuinfo.library.widget.CurrencyLoadView
 import com.haoyuinfo.mediapicker.entity.MediaItem
 import com.haoyuinfo.mediapicker.utils.MediaPicker
@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_main_train.*
 import kotlinx.android.synthetic.main.layout_menu.*
 import okhttp3.Request
+import tv.danmaku.ijk.media.ui.VideoPlayerActivity
 
 
 class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
@@ -106,19 +107,11 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
     }
 
     private fun setMenu() {
-        ll_userInfo.setOnClickListener {
-            MediaPicker.Builder(this)
-                    .mode(MediaItem.TYPE_PHOTO)
-                    .mutilyMode(true)
-                    .limit(9)
-                    .withRequestCode(1)
-                    .build()
-                    .openActivity()
-        }
         tv_learn.setOnClickListener { toggle() }
         val listener = View.OnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             intent.type = when (it.id) {
+                R.id.ll_userInfo -> MenuActivity.TYPE_USERINFO
                 R.id.tv_teaching -> MenuActivity.TYPE_CMTS
                 R.id.tv_peer -> MenuActivity.TYPE_PEER
                 R.id.tv_message -> MenuActivity.TYPE_MESSAGE
@@ -128,6 +121,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
             }
             startActivity(intent)
         }
+        ll_userInfo.setOnClickListener(listener)
         tv_teaching.setOnClickListener(listener)
         tv_peer.setOnClickListener(listener)
         tv_message.setOnClickListener(listener)
@@ -389,7 +383,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
         mCmtsIv.layoutParams = params
         mCmtsIv.setImageResource(R.drawable.ic_default)
         cmts.getmCommunityRelation()?.timePeriod?.let {
-            val text = "${TimeUtil.getSlashDate(it.startTime)}至${TimeUtil.getSlashDate(it.endTime)}"
+            val text = "${TimeUtils.getSlashDate(it.startTime)}至${TimeUtils.getSlashDate(it.endTime)}"
             mCmtsPeriodTv.text = text
         }
         cmts.getmCommunityRelation()?.let {
@@ -470,7 +464,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
                 }
             }
             R.id.action_msg -> {
-
+                startActivity(Intent(this, VideoPlayerActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

@@ -11,7 +11,7 @@ import com.haoyuinfo.app.entity.CourseResourceResult
 import com.haoyuinfo.app.entity.MFileInfo
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
-import com.haoyuinfo.library.base.BaseLazyFragment
+import com.haoyuinfo.library.base.BasePageFragment
 import com.haoyuinfo.library.widget.CurrencyLoadView
 import com.haoyuinfo.xrecyclerview.XRecyclerView
 import kotlinx.android.synthetic.main.fragment_course_resource.*
@@ -22,7 +22,7 @@ import okhttp3.Request
  * 描述:课程资源吗
  * 作者:xiaoma
  */
-class ResourceFragment : BaseLazyFragment(), XRecyclerView.LoadingListener {
+class ResourceFragment : BasePageFragment(), XRecyclerView.LoadingListener {
     private var courseId: String? = null
     private var page = 1
     private val limit = 20
@@ -98,9 +98,7 @@ class ResourceFragment : BaseLazyFragment(), XRecyclerView.LoadingListener {
             }
             isLoadMore -> xRecyclerView.loadMoreComplete(true)
         }
-        for (resource in resources) {
-            mDatas.addAll(resource.getFileInfos())
-        }
+        for (resource in resources) mDatas.addAll(resource.getFileInfos())
         adapter.notifyDataSetChanged()
         if (paginator != null && paginator.hasNextPage)
             xRecyclerView.setLoadingMoreEnabled(true)
@@ -121,4 +119,5 @@ class ResourceFragment : BaseLazyFragment(), XRecyclerView.LoadingListener {
         page += 1
         initData()
     }
+
 }

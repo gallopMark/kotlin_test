@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +18,9 @@ import com.haoyuinfo.library.widget.CompatToast
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-
-abstract class BaseLazyFragment : Fragment() {
-
+/* viewpager结合fragment使用 使用懒加载处理，避免重复加载数据*/
+abstract class BasePageFragment : Fragment() {
+    private val TAG: String = javaClass.name
     lateinit var context: Activity
     private var rootView: View? = null
     private var isFragmentVisible: Boolean = false
@@ -36,6 +37,7 @@ abstract class BaseLazyFragment : Fragment() {
     //如果我们需要在 Fragment 可见与不可见时干点事，用这个的话就会有多余的回调了，那么就需要重新封装一个
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+        Log.d(TAG, "setUserVisibleHint...")
         if (rootView == null) return
         if (isFirstVisible && isViewInited && isVisibleToUser) {
             initData()
@@ -54,15 +56,18 @@ abstract class BaseLazyFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        Log.d(TAG, "onAttach...")
         this.context = context as Activity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate...")
         isFirstVisible = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(TAG, "onCreateView...")
         if (rootView == null) {
             rootView = inflater.inflate(setLayoutResID(), container, false)
         }
@@ -71,6 +76,7 @@ abstract class BaseLazyFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d(TAG, "onViewCreated...")
         if (!isViewInited) {
             setUp()
             isViewInited = true
@@ -142,10 +148,42 @@ abstract class BaseLazyFragment : Fragment() {
         d?.let { rxDisposables.add(it) }
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart...")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume...")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause...")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop...")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView...")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        mToast?.cancel()
         rxDisposables.dispose()
         initVariable()
+        Log.d(TAG, "onDestroy...")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG, "onDetach...")
     }
 
     private fun initVariable() {

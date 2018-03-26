@@ -3,12 +3,11 @@ package com.haoyuinfo.app.activity
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.ScrollView
-import android.widget.Toast
+import com.google.gson.Gson
 import com.haoyuinfo.app.R
-import com.haoyuinfo.app.base.BaseResult
 import com.haoyuinfo.app.entity.MobileUser
+import com.haoyuinfo.app.entity.UserInfoResult
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.app.utils.PreferenceUtils
@@ -19,13 +18,11 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.Request
 import java.util.*
 
 class LoginActivity : BaseActivity() {
 
     private var requestUN = true
-    private var remember = false
 
     override fun setLayoutResID(): Int {
         return R.layout.activity_login
@@ -36,10 +33,7 @@ class LoginActivity : BaseActivity() {
         etAccount.setText(account)
         etAccount.setSelection(account.length)//将光标移至文字末尾
         cbRemember.isChecked = PreferenceUtils.isRemember(this)
-        if (PreferenceUtils.isRemember(this)) {
-            etPassword.setText(PreferenceUtils.getPassWord(this))
-        }
-        cbRemember.setOnCheckedChangeListener { _, isChecked -> remember = isChecked }
+        if (PreferenceUtils.isRemember(this)) etPassword.setText(PreferenceUtils.getPassWord(this))
         etAccount.setOnTouchListener { _, _ ->
             requestUN = true
             false
@@ -67,7 +61,6 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun controlKeyboardLayout() {
-        val rootView = findViewById<ScrollView>(R.id.rootView)
         rootView.viewTreeObserver.addOnGlobalLayoutListener({
             val rect = Rect()
             //获取root在窗体的可视区域
@@ -104,49 +97,37 @@ class LoginActivity : BaseActivity() {
                 put("username", account)
                 put("password", password)
             }
-            val tgt = OkHttpUtils.post(this, Constants.LOGIN_URL, map)
-            var st: String? = ""
+            val tgt = OkHttpUtils.postAsJson(this, Constants.LOGIN_URL, map)
+            var result: UserInfoResult? = null
             if (tgt != null && !tgt.contains("error")) {
                 map.clear()
                 map["service"] = Constants.SERVICE
-                st = OkHttpUtils.post(this, tgt, map)
+                val st = OkHttpUtils.postAsJson(this, tgt, map)
+                st?.let {
+                    val url = "${Constants.SERVICE}?ticket=$st"
+                    val json = OkHttpUtils.getAsJson(this, url)
+                    result = Gson().fromJson(json, UserInfoResult::class.java)
+                }
             }
-            st
+            result
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
             dialog.dismiss()
-            if (!TextUtils.isEmpty(it)) {
-                login(it)
+            val user = it?.getResponseData()
+            val role = user?.role
+            if (role != null && role.contains("student")) {
+                saveUser(user)
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             } else {
-                bt_login.isEnabled = true
-                Toast.makeText(this, "登录失败", Toast.LENGTH_LONG).show()
+                showCompatDialog("提示", "您不是学员身份，请选择正确版本的App登录")
             }
+            bt_login.isEnabled = true
         }, {
             dialog.dismiss()
             bt_login.isEnabled = true
-            Toast.makeText(this, "登录失败", Toast.LENGTH_LONG).show()
+            toast("登录失败")
         })
         dialog.setOnCancelListener { disposable.dispose() }
-    }
-
-    private fun login(st: String?) {
-        val url = "${Constants.SERVICE}?ticket=$st"
-        OkHttpUtils.getAsync(this, url, object : OkHttpUtils.ResultCallback<BaseResult<MobileUser>>() {
-            override fun onError(request: Request, e: Throwable) {
-                bt_login.isEnabled = true
-            }
-
-            override fun onResponse(response: BaseResult<MobileUser>?) {
-                response?.getResponseData()?.let { user ->
-                    user.role?.let {
-                        if (it.contains("student")) {
-                            saveUser(user)
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                            finish()
-                        }
-                    }
-                }
-            }
-        })
     }
 
     private fun saveUser(user: MobileUser) {
@@ -157,13 +138,10 @@ class LoginActivity : BaseActivity() {
         user.deptName?.let { map["deptName"] = it }
         user.role?.let { map["role"] = it }
         map["account"] = etAccount.text.toString()
-        map["password"] = if (remember) {
-            etPassword.text.toString()
-        } else {
-            ""
-        }
+        val password = if (cbRemember.isChecked) etPassword.text.toString() else ""
+        map["password"] = password
         map["isLogin"] = true
-        map["remember"] = remember
+        map["remember"] = cbRemember.isChecked
         PreferenceUtils.saveUser(this, map)
     }
 }

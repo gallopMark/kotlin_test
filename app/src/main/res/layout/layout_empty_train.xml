@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_arrow_right_black_24dp" />
+                app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ object AnimationUtil {
      */
     fun moveToViewBottom(v: View, duration: Long) {
         if (v.visibility != View.VISIBLE) return
+        v.isEnabled = false
         val animation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
                 0.0f, Animation.RELATIVE_TO_SELF, 1.0f)
@@ -25,6 +26,7 @@ object AnimationUtil {
 
             override fun onAnimationEnd(animation: Animation?) {
                 v.visibility = View.GONE
+                v.isEnabled = true
             }
 
             override fun onAnimationStart(animation: Animation?) {
@@ -39,6 +41,7 @@ object AnimationUtil {
      */
     fun bottomMoveToViewLocation(v: View, duration: Long) {
         if (v.visibility == View.VISIBLE) return
+        v.isEnabled = false
         v.visibility = View.VISIBLE
         val animation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
@@ -46,6 +49,19 @@ object AnimationUtil {
         animation.duration = duration
         v.clearAnimation()
         v.animation = animation
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                v.isEnabled = true
+            }
+
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+        })
     }
 
     /**
@@ -54,6 +70,7 @@ object AnimationUtil {
      */
     fun moveToViewTop(v: View, duration: Long) {
         if (v.visibility != View.VISIBLE) return
+        v.isEnabled = false
         val animation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
                 0.0f, Animation.RELATIVE_TO_SELF, -1.0f)
@@ -67,6 +84,7 @@ object AnimationUtil {
 
             override fun onAnimationEnd(animation: Animation?) {
                 v.visibility = View.GONE
+                v.isEnabled = true
             }
 
             override fun onAnimationStart(animation: Animation?) {
@@ -81,11 +99,26 @@ object AnimationUtil {
      */
     fun topMoveToViewLocation(v: View, Duration: Long) {
         v.visibility = View.VISIBLE
+        v.isEnabled = false
         val animation = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
                 -1.0f, Animation.RELATIVE_TO_SELF, 0.0f)
         animation.duration = Duration
         v.clearAnimation()
         v.animation = animation
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                v.visibility = View.GONE
+                v.isEnabled = true
+            }
+
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+        })
     }
 }
