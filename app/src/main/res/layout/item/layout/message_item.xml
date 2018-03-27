@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_click_selector"
-    android:descendantFocusability="blocksDescendants">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/ll_rowBG"
@@ -50,7 +49,7 @@
         android:id="@+id/ll_rowFG"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/item_click_selector"
         android:orientation="vertical"
         android:padding="@dimen/margin_size_12">
 

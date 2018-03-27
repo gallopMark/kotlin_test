@@ -328,53 +328,56 @@ class RecyclerTouchListener private constructor() : RecyclerView.OnItemTouchList
     }
 
     private fun animateFG(downView: View, animateType: Animation, duration: Long) {
-        if (animateType == Animation.OPEN) {
-            val translateAnimator = ObjectAnimator.ofFloat<View>(fgView, View.TRANSLATION_X, -bgWidth.toFloat())
-            translateAnimator.duration = duration
-            translateAnimator.interpolator = DecelerateInterpolator(1.5f)
-            translateAnimator.start()
-            animateFadeViews(downView, 0f, duration)
-        } else if (animateType == Animation.CLOSE) {
-            val translateAnimator = ObjectAnimator.ofFloat(fgView, View.TRANSLATION_X, 0f)
-            translateAnimator.duration = duration
-            translateAnimator.interpolator = DecelerateInterpolator(1.5f)
-            translateAnimator.start()
-            animateFadeViews(downView, 1f, duration)
+        fgView?.let {
+            if (animateType == Animation.OPEN) {
+                val translateAnimator = ObjectAnimator.ofFloat<View>(it, View.TRANSLATION_X, -bgWidth.toFloat())
+                translateAnimator.duration = duration
+                translateAnimator.interpolator = DecelerateInterpolator(1.5f)
+                translateAnimator.start()
+                animateFadeViews(downView, 0f, duration)
+            } else if (animateType == Animation.CLOSE) {
+                val translateAnimator = ObjectAnimator.ofFloat(it, View.TRANSLATION_X, 0f)
+                translateAnimator.duration = duration
+                translateAnimator.interpolator = DecelerateInterpolator(1.5f)
+                translateAnimator.start()
+                animateFadeViews(downView, 1f, duration)
+            }
         }
     }
 
     private fun animateFG(downView: View, animateType: Animation, duration: Long, mSwipeCloseListener: OnSwipeListener?) {
-        val translateAnimator: ObjectAnimator
-        if (animateType == Animation.OPEN) {
-            translateAnimator = ObjectAnimator.ofFloat<View>(fgView, View.TRANSLATION_X, -bgWidth.toFloat())
-            translateAnimator.duration = duration
-            translateAnimator.interpolator = DecelerateInterpolator(1.5f)
-            translateAnimator.start()
-            animateFadeViews(downView, 0f, duration)
-        } else
-        /*if (animateType == Animation.CLOSE)*/ {
-            translateAnimator = ObjectAnimator.ofFloat(fgView, View.TRANSLATION_X, 0f)
-            translateAnimator.duration = duration
-            translateAnimator.interpolator = DecelerateInterpolator(1.5f)
-            translateAnimator.start()
-            animateFadeViews(downView, 1f, duration)
-        }
-
-        translateAnimator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {}
-
-            override fun onAnimationEnd(animation: Animator) {
-                mSwipeCloseListener?.let {
-                    if (animateType == Animation.OPEN) it.onSwipeOptionsOpened()
-                    else if (animateType == Animation.CLOSE) it.onSwipeOptionsClosed()
-                }
-                translateAnimator.removeAllListeners()
+        fgView?.let {
+            val translateAnimator: ObjectAnimator
+            if (animateType == Animation.OPEN) {
+                translateAnimator = ObjectAnimator.ofFloat<View>(it, View.TRANSLATION_X, -bgWidth.toFloat())
+                translateAnimator.duration = duration
+                translateAnimator.interpolator = DecelerateInterpolator(1.5f)
+                translateAnimator.start()
+                animateFadeViews(downView, 0f, duration)
+            } else
+            /*if (animateType == Animation.CLOSE)*/ {
+                translateAnimator = ObjectAnimator.ofFloat(it, View.TRANSLATION_X, 0f)
+                translateAnimator.duration = duration
+                translateAnimator.interpolator = DecelerateInterpolator(1.5f)
+                translateAnimator.start()
+                animateFadeViews(downView, 1f, duration)
             }
+            translateAnimator.addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
 
-            override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationEnd(animation: Animator) {
+                    mSwipeCloseListener?.let {
+                        if (animateType == Animation.OPEN) it.onSwipeOptionsOpened()
+                        else if (animateType == Animation.CLOSE) it.onSwipeOptionsClosed()
+                    }
+                    translateAnimator.removeAllListeners()
+                }
 
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
+                override fun onAnimationCancel(animation: Animator) {}
+
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+        }
     }
 
     override fun onTouchEvent(rv: RecyclerView, motionEvent: MotionEvent) {
