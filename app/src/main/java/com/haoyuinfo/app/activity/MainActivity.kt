@@ -416,16 +416,8 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
                         val courseId = entity.id
                         val courseTitle = entity.title
                         val intent = Intent(this@MainActivity, CourseLearnActivity::class.java)
-                        selectTrainTime?.state?.let {
-                            if (it == "进行中") {
-                                intent.putExtra("training", true)
-                            }
-                        }
-                        selectTrainTime?.minutes?.let {
-                            if (it > 0) {
-                                intent.putExtra("training", true)
-                            }
-                        }
+                        selectTrainTime?.state?.let { if (it == "进行中") intent.putExtra("training", true) }
+                        selectTrainTime?.minutes?.let { if (it > 0) intent.putExtra("training", true) }
                         intent.putExtra("courseId", courseId)
                         intent.putExtra("courseTitle", courseTitle)
                         startActivity(intent)

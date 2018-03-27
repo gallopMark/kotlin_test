@@ -1,12 +1,12 @@
 package com.haoyuinfo.app.fragment.page
 
+import android.view.View
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.entity.CourseLearnResult
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.library.base.BasePageFragment
 import com.haoyuinfo.library.widget.CurrencyLoadView
-import kotlinx.android.synthetic.main.fragment_course_learn.*
 import okhttp3.Request
 
 /**
@@ -17,21 +17,23 @@ import okhttp3.Request
 class LearnFragment : BasePageFragment() {
     private var training = false
     private var courseId: String? = null
+    private lateinit var loadView: CurrencyLoadView
 
     override fun setLayoutResID(): Int {
         return R.layout.fragment_course_learn
     }
 
-    override fun setUp() {
+    override fun setUp(view: View) {
         arguments?.let {
             training = it.getBoolean("training")
             courseId = it.getString("courseId")
         }
+        loadView = view.findViewById(R.id.loadView)
     }
 
     override fun initData() {
         val url = String.format(Constants.COURSE_LEARN, courseId, courseId)
-        OkHttpUtils.getAsync(context, url, object : OkHttpUtils.ResultCallback<CourseLearnResult>() {
+        addDisposable(OkHttpUtils.getAsync(context, url, object : OkHttpUtils.ResultCallback<CourseLearnResult>() {
             override fun onBefore(request: Request) {
                 loadView.setState(CurrencyLoadView.STATE_LOADING)
             }
@@ -43,6 +45,6 @@ class LearnFragment : BasePageFragment() {
             override fun onResponse(response: CourseLearnResult?) {
                 loadView.setState(CurrencyLoadView.STATE_GONE)
             }
-        })
+        }))
     }
 }

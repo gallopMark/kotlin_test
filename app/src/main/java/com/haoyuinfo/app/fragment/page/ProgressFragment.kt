@@ -1,6 +1,7 @@
 package com.haoyuinfo.app.fragment.page
 
 import android.util.Log
+import android.view.View
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.utils.Constants
 import com.haoyuinfo.library.base.BasePageFragment
@@ -16,7 +17,7 @@ class ProgressFragment : BasePageFragment() {
         return R.layout.fragment_course_progress
     }
 
-    override fun setUp() {
+    override fun setUp(view: View) {
         courseId = arguments?.getString("courseId")
     }
 

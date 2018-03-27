@@ -38,8 +38,8 @@ abstract class BasePageFragment : Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         Log.d(TAG, "setUserVisibleHint...")
-        if (rootView == null) return
-        if (isFirstVisible && isViewInited && isVisibleToUser) {
+        if (rootView == null || !isViewInited) return
+        if (isFirstVisible && isVisibleToUser) {
             initData()
             isFirstVisible = false
         }
@@ -68,17 +68,15 @@ abstract class BasePageFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView...")
-        if (rootView == null) {
-            rootView = inflater.inflate(setLayoutResID(), container, false)
-        }
-        rootView?.parent?.let { (it as ViewGroup).removeView(rootView) }
+        rootView = rootView ?: inflater.inflate(setLayoutResID(), container, false)
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated...")
         if (!isViewInited) {
-            setUp()
+            setUp(view)
+            setListener()
             isViewInited = true
         }
         if (userVisibleHint) {
@@ -93,7 +91,8 @@ abstract class BasePageFragment : Fragment() {
 
     abstract fun setLayoutResID(): Int
 
-    open fun setUp() {}
+    open fun setUp(view: View) {}
+    open fun setListener() {}
     /**
      * 在fragment首次可见时回调，可在这里进行加载数据，保证只在第一次打开Fragment时才会加载数据，
      * 这样就可以防止每次进入都重复加载数据
@@ -169,6 +168,7 @@ abstract class BasePageFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        rootView?.parent?.let { (it as ViewGroup).removeView(rootView) }
         super.onDestroyView()
         Log.d(TAG, "onDestroyView...")
     }
@@ -177,7 +177,6 @@ abstract class BasePageFragment : Fragment() {
         super.onDestroy()
         mToast?.cancel()
         rxDisposables.dispose()
-        initVariable()
         Log.d(TAG, "onDestroy...")
     }
 
@@ -185,11 +184,4 @@ abstract class BasePageFragment : Fragment() {
         super.onDetach()
         Log.d(TAG, "onDetach...")
     }
-
-    private fun initVariable() {
-        isFirstVisible = false
-        isFragmentVisible = false
-        isViewInited = false
-    }
-
 }

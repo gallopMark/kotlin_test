@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import com.haoyuinfo.app.R
 import com.haoyuinfo.library.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_community.*
@@ -24,7 +25,7 @@ class CommunityFragment : BaseFragment() {
         return R.layout.fragment_community
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbSays -> println("cmts says...")

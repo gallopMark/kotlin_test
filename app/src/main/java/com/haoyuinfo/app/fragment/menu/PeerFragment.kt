@@ -1,5 +1,6 @@
 package com.haoyuinfo.app.fragment.menu
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.haoyu.app.entity.Paginator
@@ -30,7 +31,7 @@ class PeerFragment : BaseFragment(), XRecyclerView.LoadingListener {
         return R.layout.fragment_peer
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         xRecyclerView.layoutManager = GridLayoutManager(context, 4).apply { orientation = GridLayoutManager.VERTICAL }
         adapter = PeerAdapter(context, mDatas)
         xRecyclerView.adapter = adapter

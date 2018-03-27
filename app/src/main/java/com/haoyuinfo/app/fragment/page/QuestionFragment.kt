@@ -1,5 +1,6 @@
 package com.haoyuinfo.app.fragment.page
 
+import android.view.View
 import com.haoyuinfo.app.R
 import com.haoyuinfo.library.base.BasePageFragment
 
@@ -14,7 +15,7 @@ class QuestionFragment : BasePageFragment() {
         return R.layout.fragment_course_question
     }
 
-    override fun setUp() {
+    override fun setUp(view: View) {
         courseId = arguments?.getString("courseId")
     }
 

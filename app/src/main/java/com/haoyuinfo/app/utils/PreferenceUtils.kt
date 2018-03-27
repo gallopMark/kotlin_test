@@ -36,22 +36,22 @@ object PreferenceUtils {
 
     fun getRealName(context: Context): String {
         val realName = getPreferences(context).getString("realName", "")
-        return Base64Utils.encode(realName)
+        return Base64Utils.decode(realName)
     }
 
     fun getDeptName(context: Context): String {
         val deptName = getPreferences(context).getString("deptName", "")
-        return Base64Utils.encode(deptName)
+        return Base64Utils.decode(deptName)
     }
 
     fun getRole(context: Context): String {
         val role = getPreferences(context).getString("role", "")
-        return Base64Utils.encode(role)
+        return Base64Utils.decode(role)
     }
 
     fun getAccount(context: Context): String {
         val account = getPreferences(context).getString("account", "")
-        return Base64Utils.encode(account)
+        return Base64Utils.decode(account)
     }
 
     fun getPassWord(context: Context): String {

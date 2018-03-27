@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.net.http.SslError
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.webkit.*
 import com.haoyuinfo.app.R
@@ -16,7 +17,7 @@ class CaptureResultFragment : BaseFragment() {
         return R.layout.fragment_capture_result
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         val qrCode = arguments?.getString(CodeUtils.RESULT_STRING)
         qrCode?.let {
             if (it.startsWith("http") || it.startsWith("https")) {

@@ -1,6 +1,8 @@
 package com.haoyuinfo.app.fragment.menu
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.activity.LoginActivity
 import com.haoyuinfo.app.utils.PreferenceUtils
@@ -18,7 +20,7 @@ class SettingsFragment : BaseFragment() {
         return R.layout.fragment_settings
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         mLoginOutBt.setOnClickListener {
             PreferenceUtils.saveUser(context, HashMap<String, Any>().apply { put("isLogin", true) })
             AppManager.get().finishAllActivity()

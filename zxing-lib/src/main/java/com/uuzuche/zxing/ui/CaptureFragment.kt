@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Vibrator
 import android.text.TextUtils
 import android.view.SurfaceHolder
+import android.view.View
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.haoyuinfo.library.base.BaseFragment
@@ -52,7 +53,7 @@ class CaptureFragment : BaseFragment(), SurfaceHolder.Callback {
         return R.layout.fragment_capture
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         surfaceHolder = surfaceView?.holder
     }
 

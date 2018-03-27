@@ -1,181 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/itemDivider"
+    android:fillViewport="true"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/mClearCacheLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_16"
-        android:background="@drawable/item_click_selector"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/margin_size_14"
-        android:paddingEnd="@dimen/margin_size_16"
-        android:paddingLeft="@dimen/margin_size_16"
-        android:paddingRight="@dimen/margin_size_16"
-        android:paddingStart="@dimen/margin_size_16"
-        android:paddingTop="@dimen/margin_size_14">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_clear_cache"
-            android:drawablePadding="@dimen/margin_size_12"
-            android:drawableStart="@drawable/ic_clear_cache"
-            android:text="@string/clear_caching"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_18" />
-
-        <TextView
-            android:id="@+id/mCacheSizeTv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_size_12"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/margin_size_6"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_size_16"
-            android:paddingRight="@dimen/margin_size_16"
-            android:paddingStart="@dimen/margin_size_16"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_16" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/mClearDownloadLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_1"
-        android:background="@drawable/item_click_selector"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/margin_size_14"
-        android:paddingEnd="@dimen/margin_size_16"
-        android:paddingLeft="@dimen/margin_size_16"
-        android:paddingRight="@dimen/margin_size_16"
-        android:paddingStart="@dimen/margin_size_16"
-        android:paddingTop="@dimen/margin_size_14">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_clean_download"
-            android:drawablePadding="@dimen/margin_size_12"
-            android:drawableStart="@drawable/ic_clean_download"
-            android:text="@string/clear_off_download_content"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_18" />
-
-        <TextView
-            android:id="@+id/mDownloadSizeTv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin_size_12"
-            android:layout_marginStart="@dimen/margin_size_12"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/margin_size_6"
-            android:gravity="end"
-            android:paddingEnd="@dimen/margin_size_16"
-            android:paddingRight="@dimen/margin_size_16"
-            android:paddingStart="@dimen/margin_size_16"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_16" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/mFreebackLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_1"
-        android:background="@drawable/item_click_selector"
-        android:paddingBottom="@dimen/margin_size_14"
-        android:paddingEnd="@dimen/margin_size_16"
-        android:paddingLeft="@dimen/margin_size_16"
-        android:paddingRight="@dimen/margin_size_16"
-        android:paddingStart="@dimen/margin_size_16"
-        android:paddingTop="@dimen/margin_size_14">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_feedback"
-            android:drawablePadding="@dimen/margin_size_12"
-            android:drawableStart="@drawable/ic_feedback"
-            android:text="@string/freeback"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_18" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/mVersionLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_1"
-        android:background="@drawable/item_click_selector"
-        android:paddingBottom="@dimen/margin_size_14"
-        android:paddingEnd="@dimen/margin_size_16"
-        android:paddingLeft="@dimen/margin_size_16"
-        android:paddingRight="@dimen/margin_size_16"
-        android:paddingStart="@dimen/margin_size_16"
-        android:paddingTop="@dimen/margin_size_14">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_version_check"
-            android:drawablePadding="@dimen/margin_size_12"
-            android:drawableStart="@drawable/ic_version_check"
-            android:text="@string/detection_version"
-            android:textColor="@color/blow_gray"
-            android:textSize="@dimen/font_size_18" />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="end|center">
+            android:id="@+id/mClearCacheLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_16"
+            android:background="@drawable/item_click_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:paddingTop="@dimen/margin_size_14">
 
-            <ImageView
-                android:id="@+id/mUpdateIv"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_update_24dp" />
+                android:drawableLeft="@drawable/ic_clear_cache"
+                android:drawablePadding="@dimen/margin_size_12"
+                android:drawableStart="@drawable/ic_clear_cache"
+                android:text="@string/clear_caching"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_18" />
 
             <TextView
-                android:id="@+id/mVersionTv"
-                android:layout_width="wrap_content"
+                android:id="@+id/mCacheSizeTv"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_size_12"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/margin_size_6"
+                android:gravity="end"
+                android:paddingEnd="@dimen/margin_size_16"
+                android:paddingRight="@dimen/margin_size_16"
+                android:paddingStart="@dimen/margin_size_16"
                 android:textColor="@color/blow_gray"
                 android:textSize="@dimen/font_size_16" />
 
@@ -185,47 +61,190 @@
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/mAboutUsLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_1"
-        android:background="@drawable/item_click_selector"
-        android:paddingBottom="@dimen/margin_size_14"
-        android:paddingEnd="@dimen/margin_size_16"
-        android:paddingLeft="@dimen/margin_size_16"
-        android:paddingRight="@dimen/margin_size_16"
-        android:paddingStart="@dimen/margin_size_16"
-        android:paddingTop="@dimen/margin_size_14">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/mClearDownloadLl"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_feedback"
-            android:drawablePadding="@dimen/margin_size_12"
-            android:drawableStart="@drawable/ic_feedback"
-            android:text="@string/about_us"
-            android:textColor="@color/blow_gray"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:background="@drawable/item_click_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:paddingTop="@dimen/margin_size_14">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_clean_download"
+                android:drawablePadding="@dimen/margin_size_12"
+                android:drawableStart="@drawable/ic_clean_download"
+                android:text="@string/clear_off_download_content"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_18" />
+
+            <TextView
+                android:id="@+id/mDownloadSizeTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_size_12"
+                android:layout_marginStart="@dimen/margin_size_12"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/margin_size_6"
+                android:gravity="end"
+                android:paddingEnd="@dimen/margin_size_16"
+                android:paddingRight="@dimen/margin_size_16"
+                android:paddingStart="@dimen/margin_size_16"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mFreebackLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:background="@drawable/item_click_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:paddingTop="@dimen/margin_size_14">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_feedback"
+                android:drawablePadding="@dimen/margin_size_12"
+                android:drawableStart="@drawable/ic_feedback"
+                android:text="@string/freeback"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_18" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mVersionLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:background="@drawable/item_click_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:paddingTop="@dimen/margin_size_14">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_version_check"
+                android:drawablePadding="@dimen/margin_size_12"
+                android:drawableStart="@drawable/ic_version_check"
+                android:text="@string/detection_version"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_18" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end|center">
+
+                <ImageView
+                    android:id="@+id/mUpdateIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_update_24dp" />
+
+                <TextView
+                    android:id="@+id/mVersionTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|end"
+                    android:textColor="@color/blow_gray"
+                    android:textSize="@dimen/font_size_16" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mAboutUsLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_1"
+            android:background="@drawable/item_click_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="@dimen/margin_size_14"
+            android:paddingEnd="@dimen/margin_size_16"
+            android:paddingLeft="@dimen/margin_size_16"
+            android:paddingRight="@dimen/margin_size_16"
+            android:paddingStart="@dimen/margin_size_16"
+            android:paddingTop="@dimen/margin_size_14">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_feedback"
+                android:drawablePadding="@dimen/margin_size_12"
+                android:drawableStart="@drawable/ic_feedback"
+                android:text="@string/about_us"
+                android:textColor="@color/blow_gray"
+                android:textSize="@dimen/font_size_18" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/mLoginOutBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_30"
+            android:background="@drawable/item_click_selector"
+            android:padding="@dimen/margin_size_14"
+            android:text="@string/exit_login"
+            android:textColor="@color/crimson"
             android:textSize="@dimen/font_size_18" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_arrow_right_gray_24dp" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/mLoginOutBt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_size_30"
-        android:background="@drawable/item_click_selector"
-        android:padding="@dimen/margin_size_14"
-        android:text="@string/exit_login"
-        android:textColor="@color/crimson"
-        android:textSize="@dimen/font_size_18" />
-</LinearLayout>
+</ScrollView>

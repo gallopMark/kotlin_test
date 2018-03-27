@@ -46,8 +46,7 @@ abstract class BaseTabFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView...")
-        if (rootView == null) rootView = inflater.inflate(setLayoutResID(), container, false)
-        rootView?.parent?.let { (it as ViewGroup).removeView(rootView) }
+        rootView = rootView ?: inflater.inflate(setLayoutResID(), container, false)
         return rootView
     }
 
@@ -55,15 +54,17 @@ abstract class BaseTabFragment : Fragment() {
         Log.d(TAG, "onViewCreated...")
         super.onViewCreated(view, savedInstanceState)
         if (!isViewCreated) {
-            setUp()
+            setUp(view)
             initData()
+            setListener()
             isViewCreated = true
         }
     }
 
     abstract fun setLayoutResID(): Int
-    open fun setUp() {}
+    open fun setUp(view: View) {}
     open fun initData() {}
+    open fun setListener() {}
 
     fun toast(text: CharSequence) {
         val v = LayoutInflater.from(context).inflate(R.layout.layout_compat_toast, FrameLayout(context))
@@ -122,13 +123,14 @@ abstract class BaseTabFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        mToast?.cancel()
-        rxDisposables.dispose()
+        rootView?.parent?.let { (it as ViewGroup).removeView(rootView) }
         super.onDestroyView()
         Log.d(TAG, "onDestroyView...")
     }
 
     override fun onDestroy() {
+        mToast?.cancel()
+        rxDisposables.dispose()
         super.onDestroy()
         Log.d(TAG, "onDestroy...")
     }

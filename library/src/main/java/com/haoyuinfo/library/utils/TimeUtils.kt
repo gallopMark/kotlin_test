@@ -219,8 +219,8 @@ object TimeUtils {
         }
         //已经过去
         return when {
-            time1 > time -> TIME_BEFORE
-            time2 < time -> TIME_AFTER
+            t1 > time -> TIME_BEFORE
+            t2 < time -> TIME_AFTER
             else -> TIME_ING
         }
     }
@@ -306,8 +306,8 @@ object TimeUtils {
         return timeStr
     }
 
-    fun getSurplusDay(createTime: Long): Int {
-        var createTime = createTime
+    fun getSurplusDay(time: Long): Int {
+        var createTime = time
         createTime += (1000 * 60 * 60 * 24 * 60).toLong()
         val l = createTime - System.currentTimeMillis()
         return if (l <= 0) {
@@ -315,8 +315,8 @@ object TimeUtils {
         } else (l / (1000 * 60 * 60 * 24)).toInt()
     }
 
-    fun getCCTotalDay(createTime: Long): Int {
-        var createTime = createTime
+    fun getCCTotalDay(time: Long): Int {
+        var createTime = time
         createTime += getDateAfter(Date(), 60)
         return (createTime / (1000 * 60 * 60 * 24)).toInt()
     }

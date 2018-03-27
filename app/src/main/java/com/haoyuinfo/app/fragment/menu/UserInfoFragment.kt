@@ -1,5 +1,6 @@
 package com.haoyuinfo.app.fragment.menu
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
@@ -19,7 +20,7 @@ class UserInfoFragment : BaseFragment() {
         return R.layout.fragment_userinfo
     }
 
-    override fun setUp() {
+    override fun setUp(view: View, savedInstanceState: Bundle?) {
         val mDatas = ArrayList<String>().apply {
             for (i in 0 until 20) {
                 this.add("test ${i + 1}")

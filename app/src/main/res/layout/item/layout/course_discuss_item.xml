@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textStyle="bold"
             android:maxLines="2"
             android:textSize="@dimen/font_size_17" />
 

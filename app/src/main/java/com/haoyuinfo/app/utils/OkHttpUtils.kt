@@ -6,7 +6,6 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.Gson
-import com.google.gson.internal.`$Gson$Types`
 import com.haoyuinfo.app.base.CompatApplication
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,19 +45,6 @@ object OkHttpUtils {
         return json
     }
 
-    @Throws(Exception::class)
-    fun <T> getAsClass(context: Context, url: String): T {
-        var response = getResponse(context, url)
-        var json = response.body()?.string()
-        if (json != null && json.contains(Constants.NOSESSION)) {
-            login(context)
-            response.close()
-            response = getResponse(context, url)
-            json = response.body()?.string()
-        }
-        return mGson.fromJson(json, getRawType())
-    }
-
     /*异步get请求，返回Disposable*/
     fun <T> getAsync(context: Context, url: String, callback: ResultCallback<T>?): Disposable {
         val request = Request.Builder().url(url).tag(context).addHeader("Accept-Encoding", "gzip").build()
@@ -77,18 +63,6 @@ object OkHttpUtils {
             return response.body()?.string()
         }
         return json
-    }
-
-    fun <T> postAsClass(context: Context, url: String, params: Map<String, String>): T {
-        var response = postResonse(context, url, params)
-        var json = response.body()?.string()
-        if (json != null && json.contains(Constants.NOSESSION)) {
-            login(context)
-            response.close()
-            response = postResonse(context, url, params)
-            json = response.body()?.string()
-        }
-        return mGson.fromJson(json, getRawType())
     }
 
     /*异步post请求*/
@@ -231,17 +205,11 @@ object OkHttpUtils {
     }
 
     abstract class ResultCallback<in T> {
-        lateinit var mType: Type
+        var mType: Type
 
         init {
-            try {
-                val superclass = javaClass.genericSuperclass
-                mType = if (superclass is ParameterizedType) superclass.actualTypeArguments[0] else Any::class.java
-//                val parameterized = superclass as ParameterizedType
-//                mType = `$Gson$Types`.canonicalize(parameterized.actualTypeArguments[0])
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            val superclass = javaClass.genericSuperclass
+            mType = if (superclass is ParameterizedType) superclass.actualTypeArguments[0] else Any::class.java
         }
 
         open fun onBefore(request: Request) {}
@@ -294,55 +262,6 @@ object OkHttpUtils {
                     listener?.onProgress(contentLength, contentLength - bytesWritten, bytesWritten == contentLength, file)
                 }
             }
-        }
-    }
-
-    /**************对外公布的方法*************/
-//    companion object {
-//        @Volatile
-//        private var mInstance: OkHttpUtils? = null
-//            get() {
-//                if (field == null) {
-//                    synchronized(OkHttpUtils::class.java) {
-//                        if (field == null) {
-//                            field = OkHttpUtils()
-//                        }
-//                    }
-//                }
-//                return field
-//            }
-//    }
-
-//    fun getResponse(context: Context, url: String): Response? = Companion.mInstance?.getResponse(context, url)
-//    fun get(context: Context, url: String): String? = Companion.mInstance?.getAsJson(context, url)
-//
-//    fun <T> getAsync(context: Context, url: String, callback: ResultCallback<T>): Disposable? = Companion.mInstance?.getAsync(context, url, callback)
-//
-//    fun postResponse(context: Context, url: String, params: Map<String, String>): Response? = Companion.mInstance?.postResonse(context, url, params)
-//
-//    fun post(context: Context, url: String, params: Map<String, String>): String? = Companion.mInstance?.postAsJson(context, url, params)
-//
-//    fun <T> postAsync(context: Context, url: String, params: Map<String, String>, callback: ResultCallback<T>): Disposable? = Companion.mInstance?.postAsync(context, url, params, callback)
-//
-//    fun post(context: Context, url: String, file: File, listener: ProgressListener): String? = Companion.mInstance?.postAsJson(context, url, file, listener)
-//
-//    fun post(context: Context, url: String, file: File, params: Map<String, String>, listener: ProgressListener): String? = Companion.mInstance?.postAsJson(context, url, file, params, listener)
-//
-//    fun post(context: Context, url: String, files: Array<File>, params: Map<String, String>, listener: ProgressListener): String? = Companion.mInstance?.postAsJson(context, url, files, params, listener)
-//
-//    fun <T> postAsync(context: Context, url: String, file: File, listener: ProgressListener, callback: ResultCallback<T>): Disposable? = Companion.mInstance?.postAsync(context, url, file, listener, callback)
-//
-//    fun <T> postAsync(context: Context, url: String, file: File, params: Map<String, String>, listener: ProgressListener, callback: ResultCallback<T>): Disposable? = Companion.mInstance?.postAsync(context, url, file, params, listener, callback)
-//
-//    fun <T> postAsync(context: Context, url: String, files: Array<File>, params: Map<String, String>, listener: ProgressListener, callback: ResultCallback<T>): Disposable? = Companion.mInstance?.postAsync(context, url, files, params, listener, callback)
-
-    private fun getRawType(): Type? {
-        try {
-            val superclass = javaClass.genericSuperclass
-            val parameterized = superclass as ParameterizedType
-            return `$Gson$Types`.canonicalize(parameterized.actualTypeArguments[0])
-        } catch (e: Exception) {
-            return null
         }
     }
 }

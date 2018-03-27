@@ -36,11 +36,11 @@ abstract class BaseFragment : Fragment() {
     abstract fun setLayoutResID(): Int
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setUp()
+        setUp(view, savedInstanceState)
         setListener()
     }
 
-    open fun setUp() {}
+    open fun setUp(view: View, savedInstanceState: Bundle?) {}
 
     open fun setListener() {}
 

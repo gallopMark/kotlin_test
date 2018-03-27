@@ -1,5 +1,6 @@
 package com.haoyuinfo.app.fragment.page
 
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.haoyu.app.entity.Paginator
@@ -13,7 +14,6 @@ import com.haoyuinfo.library.base.BasePageFragment
 import com.haoyuinfo.library.recyclerviewenhanced.RecyclerTouchListener
 import com.haoyuinfo.library.widget.CurrencyLoadView
 import com.haoyuinfo.xrecyclerview.XRecyclerView
-import kotlinx.android.synthetic.main.fragment_course_discuss.*
 import okhttp3.Request
 
 /**
@@ -28,12 +28,17 @@ class DiscussFragment : BasePageFragment(), XRecyclerView.LoadingListener {
     private var isRefresh = false
     private var isLoadMore = false
     private lateinit var adapter: CourseDiscussAdapter
+    private lateinit var loadView: CurrencyLoadView
+    private lateinit var xRecyclerView: XRecyclerView
+
     override fun setLayoutResID(): Int {
         return R.layout.fragment_course_discuss
     }
 
-    override fun setUp() {
+    override fun setUp(view: View) {
         courseId = arguments?.getString("courseId")
+        loadView = view.findViewById(R.id.loadView)
+        xRecyclerView = view.findViewById(R.id.xRecyclerView)
         xRecyclerView.layoutManager = LinearLayoutManager(context).apply { orientation = LinearLayoutManager.VERTICAL }
         adapter = CourseDiscussAdapter(context, mDatas)
         xRecyclerView.adapter = adapter
@@ -76,51 +81,51 @@ class DiscussFragment : BasePageFragment(), XRecyclerView.LoadingListener {
 
             override fun onError(request: Request, e: Throwable) {
                 when {
-                    isRefresh -> xRecyclerView?.refreshComplete(false)
+                    isRefresh -> xRecyclerView.refreshComplete(false)
                     isLoadMore -> {
                         page -= 1
-                        xRecyclerView?.loadMoreComplete(false)
+                        xRecyclerView.loadMoreComplete(false)
                     }
                     else -> {
-                        loadView?.setState(CurrencyLoadView.STATE_ERROR)
+                        loadView.setState(CurrencyLoadView.STATE_ERROR)
                     }
                 }
             }
 
             override fun onResponse(response: DiscussResult?) {
-                loadView?.setState(CurrencyLoadView.STATE_GONE)
-                val list = response?.getResponseData()?.discussions
-                val paginator = response?.getResponseData()?.paginator
-                if (list != null && list.isNotEmpty()) {
-                    updateUI(list, paginator)
-                } else {
-                    when {
-                        isRefresh -> xRecyclerView?.refreshComplete(true)
-                        isLoadMore -> xRecyclerView?.loadMoreComplete(true)
-                        else -> loadView?.setState(CurrencyLoadView.STATE_EMPTY)
+                Handler().postDelayed({
+                    loadView.setState(CurrencyLoadView.STATE_GONE)
+                    val list = response?.getResponseData()?.discussions
+                    val paginator = response?.getResponseData()?.paginator
+                    if (list != null && list.isNotEmpty()) {
+                        updateUI(list, paginator)
+                    } else {
+                        when {
+                            isRefresh -> xRecyclerView.refreshComplete(true)
+                            isLoadMore -> xRecyclerView.loadMoreComplete(true)
+                            else -> loadView.setState(CurrencyLoadView.STATE_EMPTY)
+                        }
                     }
-                }
+                }, 5000)
             }
         }))
     }
 
     private fun updateUI(mDatas: List<DiscussEntity>, paginator: Paginator?) {
-        xRecyclerView?.let {
-            if (it.visibility != View.VISIBLE) it.visibility = View.VISIBLE
-            when {
-                isRefresh -> {
-                    this.mDatas.clear()
-                    it.refreshComplete(true)
-                }
-                isLoadMore -> it.loadMoreComplete(true)
+        if (xRecyclerView.visibility != View.VISIBLE) xRecyclerView.visibility = View.VISIBLE
+        when {
+            isRefresh -> {
+                this.mDatas.clear()
+                xRecyclerView.refreshComplete(true)
             }
-            this.mDatas.addAll(mDatas)
-            adapter.notifyDataSetChanged()
-            if (paginator != null && paginator.hasNextPage)
-                it.setLoadingMoreEnabled(true)
-            else
-                it.setLoadingMoreEnabled(false)
+            isLoadMore -> xRecyclerView.loadMoreComplete(true)
         }
+        this.mDatas.addAll(mDatas)
+        adapter.notifyDataSetChanged()
+        if (paginator != null && paginator.hasNextPage)
+            xRecyclerView.setLoadingMoreEnabled(true)
+        else
+            xRecyclerView.setLoadingMoreEnabled(false)
     }
 
     override fun onRefresh() {

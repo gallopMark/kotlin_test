@@ -14,7 +14,6 @@ import com.haoyuinfo.app.utils.OkHttpUtils
 import com.haoyuinfo.library.base.BasePageFragment
 import com.haoyuinfo.library.widget.CurrencyLoadView
 import com.haoyuinfo.xrecyclerview.XRecyclerView
-import kotlinx.android.synthetic.main.fragment_course_resource.*
 import okhttp3.Request
 
 /**
@@ -28,14 +27,19 @@ class ResourceFragment : BasePageFragment(), XRecyclerView.LoadingListener {
     private val limit = 20
     private var isRefresh = false
     private var isLoadMore = false
+    private lateinit var loadView: CurrencyLoadView
+    private lateinit var xRecyclerView: XRecyclerView
     private val mDatas = ArrayList<MFileInfo>()
     private lateinit var adapter: CourseResourcesAdapter
+
     override fun setLayoutResID(): Int {
         return R.layout.fragment_course_resource
     }
 
-    override fun setUp() {
+    override fun setUp(view: View) {
         courseId = arguments?.getString("courseId")
+        loadView = view.findViewById(R.id.loadView)
+        xRecyclerView = view.findViewById(R.id.xRecyclerView)
         loadView.setEmptyIco(R.drawable.ic_empty_resources)
         loadView.setEmptyText("暂无资源")
         xRecyclerView.layoutManager = LinearLayoutManager(context).apply { orientation = LinearLayoutManager.VERTICAL }
