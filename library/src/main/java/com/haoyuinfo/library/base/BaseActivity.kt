@@ -3,7 +3,6 @@ package com.haoyuinfo.library.base
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -24,10 +23,6 @@ abstract class BaseActivity : AppCompatActivity() {
     private var comPatDialog: MaterialDialog? = null
     private var mToast: CompatToast? = null
 
-    init {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT //强制竖屏
@@ -40,11 +35,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun setToolbar() {
-        actionBar = findViewById<Toolbar>(R.id.toolbar)
-        actionBar?.title = ""
-        actionBar?.setNavigationIcon(R.drawable.ic_back_white_24dp)
-        setSupportActionBar(actionBar)
-        actionBar?.setNavigationOnClickListener { finish() }
+        actionBar = findViewById(R.id.toolbar)
+        actionBar?.let {
+            it.title = ""
+            it.setNavigationIcon(R.drawable.ic_back_white_24dp)
+            setSupportActionBar(it)
+            it.setNavigationOnClickListener { finish() }
+        }
         //显示NavigationIcon,这个方法是ActionBar的方法.Toolbar没有这个方法
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -60,14 +57,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun initData() {}
 
-    open fun setListener(){}
+    open fun setListener() {}
 
     open fun addDisposable(d: Disposable?) {
         d?.let { rxDisposables.add(it) }
     }
 
     open fun showDialog() {
-        hideDialog()
+        promptDialog?.dismiss()
         window?.let { promptDialog = PromptDialog(this).apply { show() } }
     }
 
@@ -90,12 +87,12 @@ abstract class BaseActivity : AppCompatActivity() {
         val v = LayoutInflater.from(this).inflate(R.layout.layout_compat_toast, FrameLayout(this))
         val textView = v.findViewById<TextView>(R.id.tv_text)
         textView.text = text
-        fromToast().apply { view = v }.show()
-    }
-
-    private fun fromToast(): CompatToast {
-        return mToast
-                ?: CompatToast(this, R.style.CompatToast).apply { duration = Toast.LENGTH_LONG }
+        mToast?.cancel()
+        mToast = CompatToast(this, R.style.CompatToast).apply {
+            duration = Toast.LENGTH_LONG
+            view = v
+            show()
+        }
     }
 
     override fun onPause() {

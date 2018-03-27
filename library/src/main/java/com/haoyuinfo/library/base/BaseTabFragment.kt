@@ -30,7 +30,7 @@ abstract class BaseTabFragment : Fragment() {
     private var isViewCreated = false
     private val rxDisposables = CompositeDisposable()
     private var promptDialog: PromptDialog? = null
-    private val mToast: CompatToast? = null
+    private var mToast: CompatToast? = null
     private var comPatDialog: MaterialDialog? = null
 
     override fun onAttach(context: Context?) {
@@ -70,12 +70,12 @@ abstract class BaseTabFragment : Fragment() {
         val v = LayoutInflater.from(context).inflate(R.layout.layout_compat_toast, FrameLayout(context))
         val textView = v.findViewById<TextView>(R.id.tv_text)
         textView.text = text
-        fromToast().apply { view = v }.show()
-    }
-
-    private fun fromToast(): CompatToast {
-        return mToast
-                ?: CompatToast(context, R.style.CompatToast).apply { duration = Toast.LENGTH_LONG }
+        mToast?.cancel()
+        mToast = CompatToast(context, R.style.CompatToast).apply {
+            duration = Toast.LENGTH_LONG
+            view = v
+            show()
+        }
     }
 
     open fun showDialog() {

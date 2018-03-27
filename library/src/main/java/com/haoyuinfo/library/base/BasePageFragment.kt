@@ -28,7 +28,7 @@ abstract class BasePageFragment : Fragment() {
     private var isViewInited: Boolean = false
     private val rxDisposables = CompositeDisposable()
     private var promptDialog: PromptDialog? = null
-    private val mToast: CompatToast? = null
+    private var mToast: CompatToast? = null
     private var comPatDialog: MaterialDialog? = null
     //setUserVisibleHint()在Fragment创建时会先被调用一次，传入isVisibleToUser = false
     //如果当前Fragment可见，那么setUserVisibleHint()会再次被调用一次，传入isVisibleToUser = true
@@ -115,12 +115,12 @@ abstract class BasePageFragment : Fragment() {
         val v = LayoutInflater.from(context).inflate(R.layout.layout_compat_toast, FrameLayout(context))
         val textView = v.findViewById<TextView>(R.id.tv_text)
         textView.text = text
-        fromToast().apply { view = v }.show()
-    }
-
-    private fun fromToast(): CompatToast {
-        return mToast
-                ?: CompatToast(context, R.style.CompatToast).apply { duration = Toast.LENGTH_LONG }
+        mToast?.cancel()
+        mToast = CompatToast(context, R.style.CompatToast).apply {
+            duration = Toast.LENGTH_LONG
+            view = v
+            show()
+        }
     }
 
     open fun showDialog() {
