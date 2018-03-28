@@ -11,7 +11,7 @@ object Constants {
     /*首页个人培训列表*/
     const val MAIN_URL = "$OUTRT_NET/m/uc/listMyTrain"
     /*获取培训信息*/
-    const val TRAIN_INFO = "$OUTRT_NET/m/uc/getUserTrainInfo"
+    const val TRAIN_INFO = "$OUTRT_NET/m/uc/getUserTrainInfo?trainId=%s"
     const val NOSESSION = "\"responseMsg\":\"no session\""
     /*同行*/
     const val PEER_URL = "$OUTRT_NET/m/user?page=%s&limit=%s"

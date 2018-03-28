@@ -1,6 +1,8 @@
 package com.haoyuinfo.library.base
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -14,6 +16,7 @@ import com.haoyuinfo.library.dialog.PromptDialog
 import com.haoyuinfo.library.widget.CompatToast
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -93,6 +96,66 @@ abstract class BaseActivity : AppCompatActivity() {
             view = v
             show()
         }
+    }
+
+    // 封装跳转
+    fun openActivity(c: Class<*>) {
+        openActivity(c, null)
+    }
+
+    // 跳转 传递数据 bundel
+    fun openActivity(c: Class<*>, bundle: Bundle?) {
+        openActivity(c, bundle, null)
+    }
+
+    fun openActivity(c: Class<*>, bundle: Bundle?, uri: Uri?) {
+        val intent = Intent(this, c)
+        bundle?.let { intent.putExtras(it) }
+        uri?.let { intent.data = it }
+        startActivity(intent)
+    }
+
+    fun openActivity(intent: Intent) {
+        openActivity(intent, null)
+    }
+
+    fun openActivity(intent: Intent, bundle: Bundle?) {
+        openActivity(intent, bundle, null)
+    }
+
+    fun openActivity(intent: Intent, bundle: Bundle?, uri: Uri?) {
+        bundle?.let { intent.putExtras(it) }
+        uri?.let { intent.data = uri }
+        startActivity(intent)
+    }
+
+    fun openActivityForResult(c: Class<*>, requestCode: Int) {
+        openActivityForResult(c, null, requestCode)
+    }
+
+    fun openActivityForResult(c: Class<*>, bundle: Bundle?, requestCode: Int) {
+        openActivityForResult(c, bundle, null, requestCode)
+    }
+
+    fun openActivityForResult(c: Class<*>, bundle: Bundle?, uri: Uri?, requestCode: Int) {
+        val intent = Intent(this, c)
+        bundle?.let { intent.putExtras(it) }
+        uri?.let { intent.data = it }
+        startActivityForResult(intent, requestCode)
+    }
+
+    fun openActivityForResult(intent: Intent, requestCode: Int) {
+        openActivityForResult(intent, null, requestCode)
+    }
+
+    fun openActivityForResult(intent: Intent, bundle: Bundle?, requestCode: Int) {
+        openActivityForResult(intent, bundle, null, requestCode)
+    }
+
+    fun openActivityForResult(intent: Intent, bundle: Bundle?, uri: Uri?, requestCode: Int) {
+        bundle?.let { intent.putExtras(it) }
+        uri?.let { intent.data = it }
+        startActivityForResult(intent, requestCode)
     }
 
     override fun onPause() {

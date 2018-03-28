@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     /*compile 'com.android.support:multidex:1.0.3'*/
     implementation project(':library')
     implementation project(':mediapicker')
@@ -47,4 +47,5 @@ dependencies {
     implementation project(':xrecyclerview')
     implementation project(':ijkplayer')
     implementation project(':zxing-lib')
+//    implementation project(':jpush')
 }

@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.layout_main_train.*
 import kotlinx.android.synthetic.main.layout_menu.*
 import okhttp3.Request
 import tv.danmaku.ijk.media.ui.VideoPlayerActivity
+import java.util.*
 
 
 class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
@@ -57,9 +58,9 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
     }
 
     override fun setUp(savedInstanceState: Bundle?) {
+        setToolTitle(resources.getString(R.string.learn))
         setDrawer()
         setMenu()
-        setToolTitle(resources.getString(R.string.learn))
         actionBar?.setNavigationIcon(R.drawable.ic_menu_white_24dp)
         actionBar?.setNavigationOnClickListener { toggle() }
         loadView.setOnRetryListener(this)
@@ -119,7 +120,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
                 R.id.tv_consulting -> MenuActivity.TYPE_CONSULT
                 else -> MenuActivity.TYPE_SETTINGS
             }
-            startActivity(intent)
+            openActivity(intent)
         }
         ll_userInfo.setOnClickListener(listener)
         tv_teaching.setOnClickListener(listener)
@@ -162,7 +163,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
                         llCmtsLearn.setOnClickListener {
                             val intent = Intent(this@MainActivity, MenuActivity::class.java)
                             intent.type = MenuActivity.TYPE_CMTS
-                            startActivity(intent)
+                            openActivity(intent)
                         }
                     }
                 }
@@ -225,7 +226,7 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
     }
 
     private fun getTrainInfo() {
-        val url = "${Constants.TRAIN_INFO}?trainId=$selectTrainId"
+        val url = String.format(Constants.TRAIN_INFO, selectTrainId)
         addDisposable(OkHttpUtils.getAsync(this, url, object : OkHttpUtils.ResultCallback<MyTrainInfo>() {
 
             override fun onBefore(request: Request) {
@@ -439,7 +440,6 @@ class MainActivity : BaseActivity(), CurrencyLoadView.OnRetryListener {
             }
         })
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

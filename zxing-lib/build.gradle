@@ -21,8 +21,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.zxing:core:3.3.1'
     implementation project(':library')
+    implementation 'com.google.zxing:core:3.3.1'
 }
 

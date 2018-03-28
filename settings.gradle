@@ -1,1 +1,1 @@
-include ':app', ':filepicker', ':library', ':mediapicker', ':xrecyclerview', ':ijkplayer', ':zxing-lib'
+include ':app', ':filepicker', ':library', ':mediapicker', ':xrecyclerview', ':ijkplayer', ':zxing-lib', ':jpush'

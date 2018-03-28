@@ -414,6 +414,7 @@ class VideoPlayerActivity : BaseActivity() {
 
     private fun error() {
         mCurrentState = STATE_ERROR
+        mHIntTv.visibility = View.GONE
         release()
         if (!NetworkUtils.isConnected(this)) {
             onWithOutNet()
