@@ -1,6 +1,5 @@
 package com.haoyuinfo.app.fragment.page
 
-import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.haoyu.app.entity.Paginator
@@ -93,20 +92,18 @@ class DiscussFragment : BasePageFragment(), XRecyclerView.LoadingListener {
             }
 
             override fun onResponse(response: DiscussResult?) {
-                Handler().postDelayed({
-                    loadView.setState(CurrencyLoadView.STATE_GONE)
-                    val list = response?.getResponseData()?.discussions
-                    val paginator = response?.getResponseData()?.paginator
-                    if (list != null && list.isNotEmpty()) {
-                        updateUI(list, paginator)
-                    } else {
-                        when {
-                            isRefresh -> xRecyclerView.refreshComplete(true)
-                            isLoadMore -> xRecyclerView.loadMoreComplete(true)
-                            else -> loadView.setState(CurrencyLoadView.STATE_EMPTY)
-                        }
+                loadView.setState(CurrencyLoadView.STATE_GONE)
+                val list = response?.getResponseData()?.discussions
+                val paginator = response?.getResponseData()?.paginator
+                if (list != null && list.isNotEmpty()) {
+                    updateUI(list, paginator)
+                } else {
+                    when {
+                        isRefresh -> xRecyclerView.refreshComplete(true)
+                        isLoadMore -> xRecyclerView.loadMoreComplete(true)
+                        else -> loadView.setState(CurrencyLoadView.STATE_EMPTY)
                     }
-                }, 5000)
+                }
             }
         }))
     }
