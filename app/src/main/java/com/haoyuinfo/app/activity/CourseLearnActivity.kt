@@ -31,7 +31,6 @@ class CourseLearnActivity : BaseActivity() {
         courseId = intent.getStringExtra("courseId")
         val title = intent.getStringExtra("courseTitle")
         setToolTitle(title)
-        savedInstanceState?.let { viewPager.setCurrentItem(it.getInt("tab"), false) }
         fragments.add(LearnFragment().apply {
             arguments = Bundle().apply {
                 putString("courseId", courseId)
@@ -45,6 +44,7 @@ class CourseLearnActivity : BaseActivity() {
         viewPager.setPageTransformer(true, MTransformer())
         val adapter = MPageAdapter(supportFragmentManager)
         viewPager.adapter = adapter
+        savedInstanceState?.let { viewPager.setCurrentItem(it.getInt("tab"), false) }
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.rbLearn -> viewPager.setCurrentItem(0, false)
