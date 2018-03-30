@@ -21,4 +21,9 @@
         <attr name="aniSpeed" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="RippleView">
+        <attr name="rippleColor" format="color" />
+        <attr name="alphaFactor" format="float" />
+        <attr name="hover" format="boolean" />
+    </declare-styleable>
 </resources>

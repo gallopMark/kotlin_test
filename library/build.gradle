@@ -25,7 +25,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api files('libs/xstream-1.4.9.jar')
     /*compile 'com.github.bumptech.glide:glide:4.6.1'
-        annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'*/
+            annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'*/
     api 'com.github.bumptech.glide:glide:3.7.0'
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     api 'io.reactivex.rxjava2:rxjava:2.1.12'
@@ -38,5 +38,6 @@ dependencies {
     api 'com.android.support.constraint:constraint-layout:1.0.2'
     api 'com.android.support:appcompat-v7:27.1.0'
     api 'com.android.support:design:27.1.0'
+    api 'com.nineoldandroids:library:2.4.0'
 }
 
