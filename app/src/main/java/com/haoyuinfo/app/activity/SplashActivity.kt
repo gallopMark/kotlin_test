@@ -7,6 +7,9 @@ import android.view.KeyEvent
 import com.haoyuinfo.app.R
 import com.haoyuinfo.app.utils.PreferenceUtils
 import com.haoyuinfo.library.base.BaseActivity
+import com.haoyuinfo.library.utils.BitmapUtils
+import com.haoyuinfo.library.utils.ScreenUtils
+import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseActivity() {
     override fun setLayoutResID(): Int {
@@ -14,6 +17,10 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun setUp(savedInstanceState: Bundle?) {
+        val width = ScreenUtils.getScreenWidth(this)
+        val height = ScreenUtils.getScreenHeight(this)
+        val bitmap = BitmapUtils.decodeSampledBitmapFromResource(resources, R.drawable.splash_bg, width, height)
+        mSplashIv.setImageBitmap(bitmap)
         Handler(mainLooper).postDelayed({ enter() }, 2500)
     }
 

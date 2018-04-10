@@ -23,7 +23,7 @@ class SettingsFragment : BaseFragment() {
     override fun setUp(view: View, savedInstanceState: Bundle?) {
         mLoginOutBt.setOnClickListener {
             PreferenceUtils.saveUser(context, HashMap<String, Any>().apply { put("isLogin", true) })
-            AppManager.get().finishAllActivity()
+            AppManager.finishAllActivity()
             startActivity(Intent(context, LoginActivity::class.java))
         }
     }

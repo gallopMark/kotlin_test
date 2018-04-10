@@ -29,7 +29,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT //强制竖屏
-        AppManager.get().addActivity(this)
         setContentView(setLayoutResID())
         setToolbar()
         setUp(savedInstanceState)
@@ -167,6 +166,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         rxDisposables.dispose()
-        AppManager.get().removeActivity(this)
+        AppManager.removeActivity(this)
     }
 }

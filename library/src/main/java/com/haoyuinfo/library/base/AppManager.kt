@@ -7,17 +7,7 @@ import java.util.*
 /**
  * 应用程序Activity管理类：用于Activity管理和应用程序退出
  */
-class AppManager private constructor() {
-
-    companion object {
-        fun get(): AppManager {
-            return Instance.instance
-        }
-    }
-
-    private object Instance {
-        val instance = AppManager()
-    }
+object AppManager {
 
     private val activityStack = Stack<Activity>()
     /**
